@@ -1,0 +1,28 @@
+[
+  {
+    "group": "io.micrometer",
+    "name": "micrometer-commons",
+    "version": "1.17.2",
+    "bytes": 51339,
+    "sha256": "af8c85e879025ce30c381e6810e14c4f52b4150894e36c815860d14763271348",
+    "licenses": [
+      {
+        "name": "The Apache Software License, Version 2.0",
+        "url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+      }
+    ]
+  },
+  {
+    "group": "io.micrometer",
+    "name": "micrometer-observation",
+    "version": "1.17.2",
+    "bytes": 83777,
+    "sha256": "d3ff53cfa0532dc1af0de349073f9aeb985e01f4b88c1d904350178805859695",
+    "licenses": [
+      {
+        "name": "The Apache Software License, Version 2.0",
+        "url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+      }
+    ]
+  }
+]

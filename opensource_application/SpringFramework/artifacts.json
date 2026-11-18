@@ -1,0 +1,119 @@
+[
+  {
+    "group": "org.springframework",
+    "name": "spring-aop",
+    "version": "7.0.10",
+    "bytes": 429341,
+    "sha256": "babf50a645f4f788e1267078cf891e472f657cabf65518055cf5214220574e3f",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  },
+  {
+    "group": "org.springframework",
+    "name": "spring-beans",
+    "version": "7.0.10",
+    "bytes": 928122,
+    "sha256": "bd67c6fc887afa30cbcb489ff4f82bf19f818e79ab1cf1bef98dff8a289108ec",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  },
+  {
+    "group": "org.springframework",
+    "name": "spring-context",
+    "version": "7.0.10",
+    "bytes": 1401158,
+    "sha256": "f0065166b6a5101a871ab8702d6c4011cf39faed370a64e7ef14a3ad2bf2a99a",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  },
+  {
+    "group": "org.springframework",
+    "name": "spring-core",
+    "version": "7.0.10",
+    "bytes": 2037889,
+    "sha256": "a236f31a7c07e3a1a8e7839ec5c0d47b5cc75709132db50416d5dad320341f12",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  },
+  {
+    "group": "org.springframework",
+    "name": "spring-expression",
+    "version": "7.0.10",
+    "bytes": 328907,
+    "sha256": "12067b66548f7613fa8938ca6051a6d1dd8c397bf478e0bb1adb9936358ec81d",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  },
+  {
+    "group": "org.springframework",
+    "name": "spring-jdbc",
+    "version": "7.0.10",
+    "bytes": 481482,
+    "sha256": "bc4ba6bd242f2db2642938960ae27589b53dd6a611d700a260af7b3383cd0c6c",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  },
+  {
+    "group": "org.springframework",
+    "name": "spring-tx",
+    "version": "7.0.10",
+    "bytes": 292062,
+    "sha256": "9442610a8ed3d44e70fa97f49896ea810c831da62620101450f0feb522edb4cd",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  },
+  {
+    "group": "org.springframework",
+    "name": "spring-web",
+    "version": "7.0.10",
+    "bytes": 2227746,
+    "sha256": "76ddb03d236547f6852def8cb303e1cf2cd2c1954dec5bf2abd87d11b89dfee7",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  },
+  {
+    "group": "org.springframework",
+    "name": "spring-webmvc",
+    "version": "7.0.10",
+    "bytes": 1108002,
+    "sha256": "8ad0e813999d0ef1c65b8d5e55c21e4a6c0d6895cd3df32a33f9cc57bf9d226a",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  }
+]

@@ -1,0 +1,42 @@
+# 构建、下载缓存和本地工具数据
+.cache/
+# 可分享的桌面发行产物（包含运行环境与第三方源码），不作为源码提交。
+/dist/
+.gradle/
+**/build/
+**/out/
+*.class
+__pycache__/
+*.pyc
+*.log
+hs_err_pid*
+
+# IDE 个人设置
+.idea/
+*.iml
+.vscode/
+.classpath
+.project
+.settings/
+
+# 本机环境和凭据
+.env
+.env.*
+!.env.example
+local.properties
+*.keystore
+*.jks
+# TLS私钥/本机证书与诊断录制不属于源码；部署示例使用占位路径。
+*.key
+*.p12
+*.pfx
+*.jfr
+deploy/private/
+Thumbs.db
+.DS_Store
+
+# native解压目录和本轮构建输出不属于源码
+**/.lwjgl/
+
+# GitHub Releases 附件（客户端安装包、说明），只上传到 Releases，不提交进仓库
+/_releases/

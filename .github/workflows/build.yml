@@ -1,0 +1,39 @@
+name: Build GameCore
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows-desktop:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: .
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      # setup-gradle v4 默认进行 Wrapper 校验；缓存由托管 runner 管理。
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Build and run JUnit
+        run: .\gradlew.bat clean build --console=plain
+      - name: Verify a real desktop window
+        run: .\gradlew.bat :lwjgl3:smokeTest :lwjgl3:snakeSmokeTest :lwjgl3:tankSmokeTest :lwjgl3:fightSmokeTest :lwjgl3:uiScaleTest :lwjgl3:gameWindowTest --console=plain
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-reports
+          path: |
+            */build/reports/tests/
+            lwjgl3/build/reports/

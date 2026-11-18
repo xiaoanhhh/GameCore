@@ -1,0 +1,28 @@
+[
+  {
+    "group": "org.apache.logging.log4j",
+    "name": "log4j-api",
+    "version": "2.25.5",
+    "bytes": 351427,
+    "sha256": "64777f73ea0b3104c04eb82befbdccc30a425a19e83ad06cb2f93aa303511863",
+    "licenses": [
+      {
+        "name": "Apache-2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0.txt"
+      }
+    ]
+  },
+  {
+    "group": "org.apache.logging.log4j",
+    "name": "log4j-to-slf4j",
+    "version": "2.25.5",
+    "bytes": 24173,
+    "sha256": "b68e8b47342dbc9b35644a14fe2efc0b7bf18da703910cd05ad5501ffe07bba1",
+    "licenses": [
+      {
+        "name": "Apache-2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0.txt"
+      }
+    ]
+  }
+]

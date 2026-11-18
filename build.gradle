@@ -1,0 +1,47 @@
+plugins {
+    id 'base'
+}
+
+allprojects {
+    group = 'dev.gamecore'
+    version = '0.1.0-SNAPSHOT'
+}
+
+// 统一语言、编码与 JUnit 平台，避免 IDE 与命令行构建采用不同规则。
+subprojects {
+    apply plugin: 'java-library'
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(21)
+        }
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = 'UTF-8'
+        options.release = 21
+        options.compilerArgs += ['-Xlint:all', '-Werror']
+    }
+
+    tasks.withType(Test).configureEach {
+        // 将临时文件置于可写构建目录；受限桌面会话可能无法写入原用户的系统 Temp。
+        def testTemporaryDirectory = layout.buildDirectory.dir("tmp/${name}")
+        systemProperty 'java.io.tmpdir', testTemporaryDirectory.get().asFile.absolutePath
+        doFirst { testTemporaryDirectory.get().asFile.mkdirs() }
+        useJUnitPlatform()
+        testLogging {
+            events 'passed', 'skipped', 'failed'
+        }
+    }
+}
+
+// 根 build/check 始终包含所有实际模块，而图形冒烟显式执行。
+tasks.named('build') {
+    dependsOn subprojects.collect { it.tasks.named('build') }
+}
+tasks.named('check') {
+    dependsOn subprojects.collect { it.tasks.named('check') }
+}
+tasks.named('clean') {
+    dependsOn subprojects.collect { it.tasks.named('clean') }
+}

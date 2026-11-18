@@ -1,0 +1,11 @@
+[Unit]
+Description=Check GameCore short-lived IP certificate hourly
+
+[Timer]
+OnCalendar=hourly
+RandomizedDelaySec=300
+Persistent=true
+Unit=gamecore-ip-renew.service
+
+[Install]
+WantedBy=timers.target

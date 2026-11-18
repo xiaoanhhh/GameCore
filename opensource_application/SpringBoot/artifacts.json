@@ -1,0 +1,301 @@
+[
+  {
+    "group": "org.springframework.boot",
+    "name": "spring-boot",
+    "version": "4.1.2",
+    "bytes": 1392971,
+    "sha256": "1fbf6443a301eb9a098bd024149c0edc6578b073f75da8c98bc1af84c43a8f59",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  },
+  {
+    "group": "org.springframework.boot",
+    "name": "spring-boot-autoconfigure",
+    "version": "4.1.2",
+    "bytes": 372565,
+    "sha256": "a3582f417c8194a621776d14ea281e072d84e85bdbabc1e02df5c035835b5096",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  },
+  {
+    "group": "org.springframework.boot",
+    "name": "spring-boot-flyway",
+    "version": "4.1.2",
+    "bytes": 76978,
+    "sha256": "3aa1f3a85cc7f9892a58e303e6f39073626a3c65c00688bf263c5d46355d69d6",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  },
+  {
+    "group": "org.springframework.boot",
+    "name": "spring-boot-http-converter",
+    "version": "4.1.2",
+    "bytes": 54317,
+    "sha256": "d1e655ce47617315c6d87e754597928a31d21478b5c28b0e3300963b0915b551",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  },
+  {
+    "group": "org.springframework.boot",
+    "name": "spring-boot-jackson",
+    "version": "4.1.2",
+    "bytes": 82511,
+    "sha256": "83a8d3ca9ac434f22e6d148e41ba82aeb52add220484bf7f9551c74323d9cbc7",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  },
+  {
+    "group": "org.springframework.boot",
+    "name": "spring-boot-jdbc",
+    "version": "4.1.2",
+    "bytes": 204697,
+    "sha256": "2c4f460e7b965fd9a3d7ee6c3d7c5f3ebbc9b447841c118abed20d7b5a72d184",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  },
+  {
+    "group": "org.springframework.boot",
+    "name": "spring-boot-persistence",
+    "version": "4.1.2",
+    "bytes": 16029,
+    "sha256": "fd1473df17db5d4d444eac14ed262407a971fc0a3a9631e6753343d72e7859af",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  },
+  {
+    "group": "org.springframework.boot",
+    "name": "spring-boot-security",
+    "version": "4.1.2",
+    "bytes": 101381,
+    "sha256": "12b5c8478a965677aaa98ced147d15db214cfeb373eb5acfd84c1e9c25dc8ac3",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  },
+  {
+    "group": "org.springframework.boot",
+    "name": "spring-boot-servlet",
+    "version": "4.1.2",
+    "bytes": 47056,
+    "sha256": "0ff3618e8b37143843d1a8824e42ffd66b4ff73d6225b2087acce4dfc676d0e8",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  },
+  {
+    "group": "org.springframework.boot",
+    "name": "spring-boot-sql",
+    "version": "4.1.2",
+    "bytes": 36058,
+    "sha256": "6055db3a7e6f9b59814aac0a346a604d54a8638beff8a145273415b263936d45",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  },
+  {
+    "group": "org.springframework.boot",
+    "name": "spring-boot-starter",
+    "version": "4.1.2",
+    "bytes": 4768,
+    "sha256": "38e64ef99846b0f64a2cac43c2bc54f729cd13fcd5db25983a99cb5c8669a443",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  },
+  {
+    "group": "org.springframework.boot",
+    "name": "spring-boot-starter-flyway",
+    "version": "4.1.2",
+    "bytes": 4752,
+    "sha256": "375fafdb121fc1d8f404c8beb0a65e659dbc71d72ef9c85d86b23c643f6c9210",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  },
+  {
+    "group": "org.springframework.boot",
+    "name": "spring-boot-starter-jackson",
+    "version": "4.1.2",
+    "bytes": 4741,
+    "sha256": "d580732a43d7bb5793dc7ea8dc67020ab55a0af2e7923454d92758ca31d3c046",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  },
+  {
+    "group": "org.springframework.boot",
+    "name": "spring-boot-starter-jdbc",
+    "version": "4.1.2",
+    "bytes": 4769,
+    "sha256": "c87d182025f1eb36a6c5ec4ac2da96f92025173a7f779056ed988ed0f44b5d08",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  },
+  {
+    "group": "org.springframework.boot",
+    "name": "spring-boot-starter-logging",
+    "version": "4.1.2",
+    "bytes": 4743,
+    "sha256": "bad444f86b06a2a764b4f06b5045f3d43e94c77ed56250a444a29bf755a3b9bd",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  },
+  {
+    "group": "org.springframework.boot",
+    "name": "spring-boot-starter-security",
+    "version": "4.1.2",
+    "bytes": 4741,
+    "sha256": "66756863f254e4393dd7f0148d37679034548fd573031082c226be498773f611",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  },
+  {
+    "group": "org.springframework.boot",
+    "name": "spring-boot-starter-tomcat",
+    "version": "4.1.2",
+    "bytes": 4764,
+    "sha256": "a8d9201be15c70d0c3c17205eff462de9d40146f6da131d140e9644105e8b0a0",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  },
+  {
+    "group": "org.springframework.boot",
+    "name": "spring-boot-starter-tomcat-runtime",
+    "version": "4.1.2",
+    "bytes": 4745,
+    "sha256": "05371dcfb766c50238f3f5cce398622189e3e4f131a3c0c8b583d24f37c99716",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  },
+  {
+    "group": "org.springframework.boot",
+    "name": "spring-boot-starter-webmvc",
+    "version": "4.1.2",
+    "bytes": 4749,
+    "sha256": "aee9565e0d62924d294cd102a563f9fb8b44dd013b3dfbc4888990a67aaaec0d",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  },
+  {
+    "group": "org.springframework.boot",
+    "name": "spring-boot-tomcat",
+    "version": "4.1.2",
+    "bytes": 126267,
+    "sha256": "f0b1d8d33b090bc773298005708b4df1576d1c4b1bbf9583afce065580e13002",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  },
+  {
+    "group": "org.springframework.boot",
+    "name": "spring-boot-transaction",
+    "version": "4.1.2",
+    "bytes": 21017,
+    "sha256": "f0430406b83310c65219082ff16a9af5ee74e2c1ee19f9f478f6a0ab8ec1f70f",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  },
+  {
+    "group": "org.springframework.boot",
+    "name": "spring-boot-web-server",
+    "version": "4.1.2",
+    "bytes": 171137,
+    "sha256": "e5b2fa7222baf36621566a2d0f7d924aa92a8462680f8e67d972f965ef18356a",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  },
+  {
+    "group": "org.springframework.boot",
+    "name": "spring-boot-webmvc",
+    "version": "4.1.2",
+    "bytes": 175392,
+    "sha256": "3c39a0578d1e66b5b5371641790a66c89b14f8099731987a7dd6502e2fdd32b5",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  }
+]

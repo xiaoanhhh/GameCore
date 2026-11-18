@@ -1,0 +1,36 @@
+[
+  {
+    "group": "net.java.dev.jna",
+    "name": "jna",
+    "version": "5.17.0",
+    "bytes": 2002589,
+    "sha256": "b3a9408e7c51e08ef0e3bfcc08f443f6ec0f6191ba8cd7c18d53d2b22e5bdbc0",
+    "licenses": [
+      {
+        "name": "LGPL-2.1-or-later",
+        "url": "https://www.gnu.org/licenses/old-licenses/lgpl-2.1"
+      },
+      {
+        "name": "Apache-2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0.txt"
+      }
+    ]
+  },
+  {
+    "group": "net.java.dev.jna",
+    "name": "jna-platform",
+    "version": "5.17.0",
+    "bytes": 1378617,
+    "sha256": "b7e3d46c87bad2eb409b0e704916bcd81206168e357312dfddd0e253679cd9e0",
+    "licenses": [
+      {
+        "name": "LGPL-2.1-or-later",
+        "url": "https://www.gnu.org/licenses/old-licenses/lgpl-2.1"
+      },
+      {
+        "name": "Apache-2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0.txt"
+      }
+    ]
+  }
+]

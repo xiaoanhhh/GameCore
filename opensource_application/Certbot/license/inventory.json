@@ -1,0 +1,345 @@
+[
+  {
+    "name": "acme",
+    "version": "5.9.0",
+    "license_expression": "Apache-2.0",
+    "license": "",
+    "classifiers": [],
+    "homepage": "",
+    "projects": [
+      "Homepage, https://github.com/certbot/certbot"
+    ],
+    "license_files": [
+      "acme/0-LICENSE.txt"
+    ],
+    "bootstrap": false
+  },
+  {
+    "name": "certbot",
+    "version": "5.9.0",
+    "license_expression": "Apache-2.0",
+    "license": "",
+    "classifiers": [],
+    "homepage": "",
+    "projects": [
+      "Homepage, https://github.com/certbot/certbot"
+    ],
+    "license_files": [
+      "certbot/0-LICENSE.txt"
+    ],
+    "bootstrap": false
+  },
+  {
+    "name": "certifi",
+    "version": "2026.10.23",
+    "license_expression": "",
+    "license": "MPL-2.0",
+    "classifiers": [
+      "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)"
+    ],
+    "homepage": "https://github.com/certifi/python-certifi",
+    "projects": [
+      "Source, https://github.com/certifi/python-certifi"
+    ],
+    "license_files": [
+      "certifi/0-LICENSE"
+    ],
+    "bootstrap": false
+  },
+  {
+    "name": "cffi",
+    "version": "2.1.1",
+    "license_expression": "MIT-0",
+    "license": "",
+    "classifiers": [],
+    "homepage": "",
+    "projects": [
+      "Documentation, https://cffi.readthedocs.io/",
+      "Changelog, https://cffi.readthedocs.io/en/latest/whatsnew.html",
+      "Download, https://github.com/python-cffi/cffi/releases",
+      "Contact, https://groups.google.com/forum/#!forum/python-cffi",
+      "Source Code, https://github.com/python-cffi/cffi",
+      "Issue Tracker, https://github.com/python-cffi/cffi/issues"
+    ],
+    "license_files": [
+      "cffi/0-LICENSE"
+    ],
+    "bootstrap": false
+  },
+  {
+    "name": "charset-normalizer",
+    "version": "3.5.2",
+    "license_expression": "",
+    "license": "MIT",
+    "classifiers": [],
+    "homepage": "",
+    "projects": [
+      "Changelog, https://github.com/jawah/charset_normalizer/blob/master/CHANGELOG.md",
+      "Documentation, https://charset-normalizer.readthedocs.io/",
+      "Code, https://github.com/jawah/charset_normalizer",
+      "Issue tracker, https://github.com/jawah/charset_normalizer/issues"
+    ],
+    "license_files": [
+      "charset-normalizer/0-LICENSE"
+    ],
+    "bootstrap": false
+  },
+  {
+    "name": "ConfigArgParse",
+    "version": "1.9.0",
+    "license_expression": "",
+    "license": "MIT",
+    "classifiers": [
+      "License :: OSI Approved :: MIT License"
+    ],
+    "homepage": "https://github.com/bw2/ConfigArgParse",
+    "projects": [],
+    "license_files": [
+      "ConfigArgParse/0-LICENSE"
+    ],
+    "bootstrap": false
+  },
+  {
+    "name": "configobj",
+    "version": "5.0.9",
+    "license_expression": "",
+    "license": "BSD-3-Clause",
+    "classifiers": [
+      "License :: OSI Approved :: BSD License"
+    ],
+    "homepage": "https://github.com/DiffSK/configobj",
+    "projects": [],
+    "license_files": [
+      "configobj/0-LICENSE"
+    ],
+    "bootstrap": false
+  },
+  {
+    "name": "cryptography",
+    "version": "50.0.2",
+    "license_expression": "Apache-2.0 OR BSD-3-Clause",
+    "license": "",
+    "classifiers": [],
+    "homepage": "",
+    "projects": [
+      "changelog, https://cryptography.io/en/latest/changelog/",
+      "documentation, https://cryptography.io/",
+      "homepage, https://github.com/pyca/cryptography",
+      "issues, https://github.com/pyca/cryptography/issues",
+      "source, https://github.com/pyca/cryptography/"
+    ],
+    "license_files": [
+      "cryptography/0-LICENSE",
+      "cryptography/1-LICENSE.APACHE",
+      "cryptography/2-LICENSE.BSD"
+    ],
+    "bootstrap": false
+  },
+  {
+    "name": "distro",
+    "version": "1.9.0",
+    "license_expression": "",
+    "license": "Apache License, Version 2.0",
+    "classifiers": [
+      "License :: OSI Approved :: Apache Software License"
+    ],
+    "homepage": "https://github.com/python-distro/distro",
+    "projects": [],
+    "license_files": [
+      "distro/0-LICENSE"
+    ],
+    "bootstrap": false
+  },
+  {
+    "name": "idna",
+    "version": "3.20",
+    "license_expression": "BSD-3-Clause",
+    "license": "",
+    "classifiers": [],
+    "homepage": "",
+    "projects": [
+      "Changelog, https://github.com/kjd/idna/blob/master/HISTORY.md",
+      "Issue tracker, https://github.com/kjd/idna/issues",
+      "Source, https://github.com/kjd/idna"
+    ],
+    "license_files": [
+      "idna/0-LICENSE.md"
+    ],
+    "bootstrap": false
+  },
+  {
+    "name": "josepy",
+    "version": "2.2.0",
+    "license_expression": "Apache-2.0",
+    "license": "",
+    "classifiers": [],
+    "homepage": "",
+    "projects": [
+      "Homepage, https://github.com/certbot/josepy"
+    ],
+    "license_files": [
+      "josepy/0-LICENSE.txt"
+    ],
+    "bootstrap": false
+  },
+  {
+    "name": "parsedatetime",
+    "version": "2.6",
+    "license_expression": "",
+    "license": "Apache License 2.0",
+    "classifiers": [
+      "License :: OSI Approved :: Apache Software License"
+    ],
+    "homepage": "https://github.com/bear/parsedatetime",
+    "projects": [],
+    "license_files": [
+      "parsedatetime/0-LICENSE.txt"
+    ],
+    "bootstrap": false
+  },
+  {
+    "name": "pip",
+    "version": "22.0.2",
+    "license_expression": "",
+    "license": "MIT",
+    "classifiers": [
+      "License :: OSI Approved :: MIT License"
+    ],
+    "homepage": "https://pip.pypa.io/",
+    "projects": [
+      "Documentation, https://pip.pypa.io",
+      "Source, https://github.com/pypa/pip",
+      "Changelog, https://pip.pypa.io/en/stable/news/"
+    ],
+    "license_files": [
+      "pip/0-LICENSE.txt"
+    ],
+    "bootstrap": true
+  },
+  {
+    "name": "pycparser",
+    "version": "3.11",
+    "license_expression": "BSD-3-Clause",
+    "license": "",
+    "classifiers": [],
+    "homepage": "",
+    "projects": [
+      "Homepage, https://github.com/eliben/pycparser"
+    ],
+    "license_files": [
+      "pycparser/0-LICENSE"
+    ],
+    "bootstrap": false
+  },
+  {
+    "name": "pyOpenSSL",
+    "version": "26.4.0",
+    "license_expression": "",
+    "license": "Apache License, Version 2.0",
+    "classifiers": [
+      "License :: OSI Approved :: Apache Software License"
+    ],
+    "homepage": "https://pyopenssl.org/",
+    "projects": [
+      "Source, https://github.com/pyca/pyopenssl"
+    ],
+    "license_files": [
+      "pyOpenSSL/0-LICENSE"
+    ],
+    "bootstrap": false
+  },
+  {
+    "name": "pyRFC3339",
+    "version": "2.1.0",
+    "license_expression": "MIT",
+    "license": "",
+    "classifiers": [],
+    "homepage": "",
+    "projects": [
+      "Homepage, https://github.com/kurtraschke/pyrfc3339",
+      "Documentation, https://pyrfc3339.readthedocs.io/",
+      "Repository, https://github.com/kurtraschke/pyRFC3339.git",
+      "Bug Tracker, https://github.com/kurtraschke/pyRFC3339/issues",
+      "Changelog, https://github.com/kurtraschke/pyRFC3339/blob/main/CHANGES.rst"
+    ],
+    "license_files": [
+      "pyRFC3339/0-LICENSE.txt"
+    ],
+    "bootstrap": false
+  },
+  {
+    "name": "requests",
+    "version": "2.34.2",
+    "license_expression": "",
+    "license": "Apache-2.0",
+    "classifiers": [
+      "License :: OSI Approved :: Apache Software License"
+    ],
+    "homepage": "",
+    "projects": [
+      "Documentation, https://requests.readthedocs.io",
+      "Source, https://github.com/psf/requests"
+    ],
+    "license_files": [
+      "requests/0-LICENSE",
+      "requests/1-NOTICE"
+    ],
+    "bootstrap": false
+  },
+  {
+    "name": "setuptools",
+    "version": "59.6.0",
+    "license_expression": "",
+    "license": "UNKNOWN",
+    "classifiers": [
+      "License :: OSI Approved :: MIT License"
+    ],
+    "homepage": "https://github.com/pypa/setuptools",
+    "projects": [
+      "Documentation, https://setuptools.pypa.io/"
+    ],
+    "license_files": [
+      "setuptools/0-LICENSE"
+    ],
+    "bootstrap": true
+  },
+  {
+    "name": "typing_extensions",
+    "version": "4.16.0",
+    "license_expression": "PSF-2.0",
+    "license": "",
+    "classifiers": [],
+    "homepage": "",
+    "projects": [
+      "Bug Tracker, https://github.com/python/typing_extensions/issues",
+      "Changes, https://github.com/python/typing_extensions/blob/main/CHANGELOG.md",
+      "Documentation, https://typing-extensions.readthedocs.io/",
+      "Home, https://github.com/python/typing_extensions",
+      "Q & A, https://github.com/python/typing/discussions",
+      "Repository, https://github.com/python/typing_extensions"
+    ],
+    "license_files": [
+      "typing_extensions/0-LICENSE"
+    ],
+    "bootstrap": false
+  },
+  {
+    "name": "urllib3",
+    "version": "2.8.0",
+    "license_expression": "MIT",
+    "license": "",
+    "classifiers": [],
+    "homepage": "",
+    "projects": [
+      "Changelog, https://github.com/urllib3/urllib3/blob/main/CHANGES.rst",
+      "Documentation, https://urllib3.readthedocs.io",
+      "Code, https://github.com/urllib3/urllib3",
+      "Issue tracker, https://github.com/urllib3/urllib3/issues",
+      "Security policy, https://urllib3.readthedocs.io/en/latest/security.html"
+    ],
+    "license_files": [
+      "urllib3/0-LICENSE.txt"
+    ],
+    "bootstrap": false
+  }
+]

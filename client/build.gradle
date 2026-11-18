@@ -1,0 +1,40 @@
+dependencies {
+    api project(':game-api')
+    api project(':game-snake')
+    api project(':game-tank')
+    api project(':game-fight')
+    implementation project(':network-transport')
+    implementation project(':game-online')
+    implementation project(':platform-api')
+    implementation libs.netty.resolver.dns
+    // Game 和 Screen 构成客户端生命周期；桌面后端留在 lwjgl3 模块。
+    api libs.gdx
+    implementation libs.gdx.freetype
+    testImplementation platform(libs.junit.bom)
+    testImplementation libs.junit.jupiter
+    testRuntimeOnly libs.junit.launcher
+    testImplementation project(':game-server')
+}
+sourceSets.test.resources.srcDir rootProject.file('assets')
+
+// 正式制品由发布者注入HTTPS入口；空值显示未配置提示，不内置隧道或猜测云地址；离线启动独立控制。
+def endpointDirectory = layout.buildDirectory.dir('generated/platform-endpoint')
+def publishedPlatform = providers.gradleProperty('platformUrl').orElse('')
+tasks.register('generatePlatformEndpoint') {
+    inputs.property('platformUrl', publishedPlatform)
+    outputs.dir(endpointDirectory)
+    doLast {
+        def value=publishedPlatform.get().trim()
+        if (value) {
+            def uri=new URI(value)
+            if (value.length()>180 || uri.host==null || uri.port==0 || uri.port>65535 || uri.userInfo!=null || uri.query!=null || uri.fragment!=null || !(uri.path in ['', '/']) || !(uri.scheme=='https' || uri.scheme=='http' && uri.host in ['127.0.0.1','localhost','[::1]','::1'])) { throw new GradleException('platformUrl requires HTTPS; HTTP only for loopback development') }
+        }
+        def directory=endpointDirectory.get().asFile;directory.mkdirs()
+        new File(directory,'gamecore-platform.properties').setText('# 发布配置，不包含凭证\nplatform.url='+value+'\n','UTF-8')
+    }
+}
+sourceSets.main.resources.srcDir(endpointDirectory)
+tasks.named('processResources') { dependsOn tasks.named('generatePlatformEndpoint') }
+tasks.named('test') {
+    systemProperty 'gamecore.network.experimentOutput', rootProject.layout.buildDirectory.dir('reports/network-experiments').get().asFile.absolutePath
+}

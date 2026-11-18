@@ -1,0 +1,41 @@
+[
+  {
+    "group": "org.springframework.boot",
+    "name": "spring-boot-buildpack-platform",
+    "version": "4.1.2",
+    "bytes": 333280,
+    "sha256": "60acfe8d4ec6380a1a87d9076959446b217cd40ef408345265815c36833ce53d",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  },
+  {
+    "group": "org.springframework.boot",
+    "name": "spring-boot-gradle-plugin",
+    "version": "4.1.2",
+    "bytes": 156715,
+    "sha256": "aa64e39d526d35d2dcc9aa136b6a20cd7e31abc5b83a238e796ddeef42b8d7c5",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  },
+  {
+    "group": "org.springframework.boot",
+    "name": "spring-boot-loader-tools",
+    "version": "4.1.2",
+    "bytes": 341496,
+    "sha256": "8cc3d85b99492c75540fe7cc535f918f1fc3291afcfbb5e024f8689ea6d88619",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  }
+]

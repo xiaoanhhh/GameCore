@@ -1,0 +1,15 @@
+// Windows已有游戏进程锁住旧JAR时，验证同一工作区源码但隔离输出；不结束用户进程或另建仓库。
+// 必须早于根脚本的subprojects/java插件配置，否则已捕获的main/test输出会混用旧目录。
+gradle.projectsLoaded {
+    gradle.rootProject.allprojects { project ->
+        def stage = gradle.startParameter.projectProperties.get('verificationStage') ?: 'stage04'
+        if (!(stage ==~ /[a-z0-9-]+/)) { throw new GradleException('Invalid verification stage') }
+        def base = project.rootProject.projectDir.toPath().resolve('.cache/verification-' + (gradle.startParameter.projectProperties.get('verificationStage') ?: 'stage04')).toAbsolutePath().normalize()
+        def name = project.path == ':' ? 'root' : project.path.substring(1).replace(':', '/')
+        def target = base.resolve(name).normalize()
+        if (!target.startsWith(base) || target == base) {
+            throw new GradleException('Verification output must stay inside the dedicated workspace cache')
+        }
+        project.layout.buildDirectory.set(target.toFile())
+    }
+}

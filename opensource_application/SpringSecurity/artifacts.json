@@ -1,0 +1,54 @@
+[
+  {
+    "group": "org.springframework.security",
+    "name": "spring-security-config",
+    "version": "7.1.2",
+    "bytes": 2143224,
+    "sha256": "826af4e79495d54b761a5f0313774a07d36359e83dd5518d57d69bacd7bbf478",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  },
+  {
+    "group": "org.springframework.security",
+    "name": "spring-security-core",
+    "version": "7.1.2",
+    "bytes": 641388,
+    "sha256": "39df3dc77436d3e9308f89056c1a42605e08f0ad9ad208f7e34c4b16102886e1",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  },
+  {
+    "group": "org.springframework.security",
+    "name": "spring-security-crypto",
+    "version": "7.1.2",
+    "bytes": 118835,
+    "sha256": "4aaa60bb612d5fece004c07f893b3a8d707c207bbd8585d10e0015b5301cd864",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  },
+  {
+    "group": "org.springframework.security",
+    "name": "spring-security-web",
+    "version": "7.1.2",
+    "bytes": 933139,
+    "sha256": "fc36d37695462dbe4fb32bd6820043afbf83ebcffce4974929bf79a29fcb5e73",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  }
+]

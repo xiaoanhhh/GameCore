@@ -1,0 +1,10 @@
+[
+  {
+    "group": "org.apache.commons",
+    "name": "commons-lang3",
+    "version": "3.16.0",
+    "bytes": 674238,
+    "sha256": "08709dd74d602b705ce4017d26544210056a4ba583d5b20c09373406fe7a00f8",
+    "licenses": []
+  }
+]

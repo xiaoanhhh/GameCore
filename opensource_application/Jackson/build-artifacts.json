@@ -1,0 +1,41 @@
+[
+  {
+    "group": "com.fasterxml.jackson.core",
+    "name": "jackson-annotations",
+    "version": "2.21",
+    "bytes": 82104,
+    "sha256": "53ca085f4a150f703f49e1aabd935bd03b43e1ea3d55d135438292af22cef56b",
+    "licenses": [
+      {
+        "name": "The Apache Software License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0.txt"
+      }
+    ]
+  },
+  {
+    "group": "tools.jackson.core",
+    "name": "jackson-core",
+    "version": "3.1.7",
+    "bytes": 602666,
+    "sha256": "7608c367fd8a92666d28711519599543c180298259963184ce04d2947a8f71e7",
+    "licenses": [
+      {
+        "name": "The Apache Software License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0.txt"
+      }
+    ]
+  },
+  {
+    "group": "tools.jackson.core",
+    "name": "jackson-databind",
+    "version": "3.1.7",
+    "bytes": 1951590,
+    "sha256": "48c781de87e2016e1f0d973748a27130f11643e7ac080173f40e2d9669d84be3",
+    "licenses": [
+      {
+        "name": "The Apache Software License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0.txt"
+      }
+    ]
+  }
+]

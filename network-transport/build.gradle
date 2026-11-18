@@ -1,0 +1,12 @@
+// 客户端与服务器共用实际长度帧/Protobuf管线；不承载规则、房间或UI。
+dependencies {
+    api project(':protocol')
+    api platform(libs.netty.bom)
+    api libs.netty.transport
+    api libs.netty.codec.base
+    api libs.netty.handler
+    api libs.netty.resolver.dns
+    testImplementation platform(libs.junit.bom)
+    testImplementation libs.junit.jupiter
+    testRuntimeOnly libs.junit.launcher
+}

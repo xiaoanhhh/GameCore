@@ -1,0 +1,15 @@
+[
+  {
+    "group": "org.yaml",
+    "name": "snakeyaml",
+    "version": "2.6",
+    "bytes": 340068,
+    "sha256": "c8f7a98e7394adda02f6317249710e4d1b4c7a25aa8c7eace0c2eea52eb8bf85",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+      }
+    ]
+  }
+]

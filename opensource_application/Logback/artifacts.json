@@ -1,0 +1,18 @@
+[
+  {
+    "group": "ch.qos.logback",
+    "name": "logback-classic",
+    "version": "1.5.38",
+    "bytes": 287122,
+    "sha256": "afb439c61fa287c9e1925523b13baab03617e724406a389d48b61c2c3e46b700",
+    "licenses": []
+  },
+  {
+    "group": "ch.qos.logback",
+    "name": "logback-core",
+    "version": "1.5.38",
+    "bytes": 641090,
+    "sha256": "a855a0fc97b1d06f4efb1c3bba5ebd0eb508d8b58e68e89e4bbc23a85135c883",
+    "licenses": []
+  }
+]

@@ -1,0 +1,39 @@
+package dev.gamecore.online.fight;
+import dev.gamecore.api.online.GameSnapshotCodec;
+import dev.gamecore.api.session.SessionState;
+import dev.gamecore.fight.*;
+import dev.gamecore.online.ProtocolValues;
+import dev.gamecore.protocol.GameProtocol;
+/** fight/7全部公开状态的稳定投影；地图几何校验，绝不反写FightSession。 */
+public final class FightSnapshotCodec implements GameSnapshotCodec<FightSnapshot> {
+    private static GameProtocol.FightFighter encode(FightSnapshot.Fighter v){return GameProtocol.FightFighter.newBuilder().setPlayer(v.player()).setKind(v.kind().name()).setX(v.x()).setY(v.y()).setFacing(v.facing()).setHealth(v.health()).setEnergy(v.energy()).setAction(v.action().name()).setActionTicks(v.actionTicks()).setStunTicks(v.stunTicks()).setSlowTicks(v.slowTicks()).setVx(v.vx()).setVy(v.vy()).setGrounded(v.grounded()).setJumpCount(v.jumpCount()).setPlatform(v.platform()).setTravel(v.travel()).setPoseTick(v.poseTick()).setComboCount(v.comboCount()).setMaxCombo(v.maxCombo()).setTotalDamage(v.totalDamage()).setAttacks(v.attacks()).setHits(v.hits()).setTeleportCooldown(v.teleportCooldown()).setBoundBy(v.boundBy()).build();}
+    private static FightSnapshot.Fighter decode(GameProtocol.FightFighter v){ProtocolValues.known(v);ProtocolValues.finite(v.getX(),v.getY(),v.getEnergy(),v.getVx(),v.getVy(),v.getTravel());return new FightSnapshot.Fighter(v.getPlayer(),FighterKind.valueOf(v.getKind()),v.getX(),v.getY(),v.getFacing(),v.getHealth(),v.getEnergy(),FightSnapshot.Action.valueOf(v.getAction()),v.getActionTicks(),v.getStunTicks(),v.getSlowTicks(),v.getVx(),v.getVy(),v.getGrounded(),v.getJumpCount(),v.getPlatform(),v.getTravel(),v.getPoseTick(),v.getComboCount(),v.getMaxCombo(),v.getTotalDamage(),v.getAttacks(),v.getHits(),v.getTeleportCooldown(),v.getBoundBy());}
+    private static GameProtocol.FightProjectile encode(FightSnapshot.Projectile v){return GameProtocol.FightProjectile.newBuilder().setOwner(v.owner()).setKind(v.kind().name()).setX(v.x()).setY(v.y()).setDirection(v.direction()).setUltimate(v.ultimate()).build();}
+    private static FightSnapshot.Projectile decode(GameProtocol.FightProjectile v){ProtocolValues.known(v);ProtocolValues.finite(v.getX(),v.getY());return new FightSnapshot.Projectile(v.getOwner(),FighterKind.valueOf(v.getKind()),v.getX(),v.getY(),v.getDirection(),v.getUltimate());}
+    private static GameProtocol.FightImpact encode(FightSnapshot.Impact v){return GameProtocol.FightImpact.newBuilder().setId(v.id()).setX(v.x()).setY(v.y()).setBlocked(v.blocked()).setKind(v.kind().name()).setLife(v.life()).setDamage(v.damage()).setDirection(v.direction()).setUltimate(v.ultimate()).setAttacker(v.attacker()).setDefender(v.defender()).setAttack(v.attack().name()).build();}
+    private static FightSnapshot.Impact decode(GameProtocol.FightImpact v){ProtocolValues.known(v);ProtocolValues.finite(v.getX(),v.getY());return new FightSnapshot.Impact(v.getId(),v.getX(),v.getY(),v.getBlocked(),FighterKind.valueOf(v.getKind()),v.getLife(),v.getDamage(),v.getDirection(),v.getUltimate(),v.getAttacker(),v.getDefender(),FightSnapshot.Attack.valueOf(v.getAttack()));}
+    private static GameProtocol.FightStrike encode(FightSnapshot.Strike v){return GameProtocol.FightStrike.newBuilder().setIndex(v.index()).setX(v.x()).setY(v.y()).setAge(v.age()).setAimed(v.aimed()).setHit(v.hit()).build();}
+    private static FightSnapshot.Strike decode(GameProtocol.FightStrike v){ProtocolValues.known(v);ProtocolValues.finite(v.getX(),v.getY());return new FightSnapshot.Strike(v.getIndex(),v.getX(),v.getY(),v.getAge(),v.getAimed(),v.getHit());}
+    private static GameProtocol.FightUltimate encode(FightSnapshot.Ultimate v){return GameProtocol.FightUltimate.newBuilder().setId(v.id()).setOwner(v.owner()).setKind(v.kind().name()).setAge(v.age()).setCasterX(v.casterX()).setCasterY(v.casterY()).setTargetX(v.targetX()).setTargetY(v.targetY()).setCaptured(v.captured()).setMissed(v.missed()).addAllStrikes(v.strikes().stream().map(FightSnapshotCodec::encode).toList()).build();}
+    private static FightSnapshot.Ultimate decode(GameProtocol.FightUltimate v){ProtocolValues.known(v);ProtocolValues.finite(v.getCasterX(),v.getCasterY(),v.getTargetX(),v.getTargetY());return new FightSnapshot.Ultimate(v.getId(),v.getOwner(),FighterKind.valueOf(v.getKind()),v.getAge(),v.getCasterX(),v.getCasterY(),v.getTargetX(),v.getTargetY(),v.getCaptured(),v.getMissed(),v.getStrikesList().stream().map(FightSnapshotCodec::decode).toList());}
+    private static GameProtocol.FightTeleport encode(FightSnapshot.Teleport v){return GameProtocol.FightTeleport.newBuilder().setId(v.id()).setOwner(v.owner()).setFromX(v.fromX()).setFromY(v.fromY()).setToX(v.toX()).setToY(v.toY()).setDirection(v.direction()).setAge(v.age()).build();}
+    private static FightSnapshot.Teleport decode(GameProtocol.FightTeleport v){ProtocolValues.known(v);ProtocolValues.finite(v.getFromX(),v.getFromY(),v.getToX(),v.getToY());return new FightSnapshot.Teleport(v.getId(),v.getOwner(),v.getFromX(),v.getFromY(),v.getToX(),v.getToY(),v.getDirection(),v.getAge());}
+    @Override public byte[] encode(FightSnapshot s){
+        var b=GameProtocol.FightView.newBuilder().setTick(s.tick()).setState(s.state().name()).setResult(s.result().name()).setHitstopTicks(s.hitstopTicks()).setMap(s.map().name());
+        s.fighters().forEach(v->b.addFighters(encode(v)));s.projectiles().forEach(v->b.addProjectiles(encode(v)));s.impacts().forEach(v->b.addImpacts(encode(v)));s.ultimates().forEach(v->b.addUltimates(encode(v)));s.teleports().forEach(v->b.addTeleports(encode(v)));
+        s.map().platforms().forEach(v->b.addPlates(GameProtocol.FightPlate.newBuilder().setId(v.id()).setLeft(v.left()).setRight(v.right()).setHeight(v.height())));
+        return ProtocolValues.bytes(GameProtocol.GameSnapshot.newBuilder().setFight(b).build());
+    }
+    @Override public FightSnapshot decode(byte[] bytes){
+        try{var all=GameProtocol.GameSnapshot.parseFrom(bytes);ProtocolValues.known(all);if(!all.hasFight()){throw new IllegalArgumentException("Wrong game snapshot");}var v=all.getFight();ProtocolValues.known(v);
+            if(v.getTick()<0||v.getFightersCount()!=2||v.getProjectilesCount()>128||v.getImpactsCount()>128||v.getUltimatesCount()>8||v.getTeleportsCount()>16||v.getHitstopTicks()<0||v.getHitstopTicks()>120){throw new IllegalArgumentException("Fight snapshot bounds");}
+            var map=FightMap.valueOf(v.getMap());if(v.getPlatesCount()!=map.platforms().size()){throw new IllegalArgumentException("Map geometry");}
+            for(int i=0;i<v.getPlatesCount();i++){var a=v.getPlates(i);var b=map.platforms().get(i);if(a.getId()!=b.id()||a.getLeft()!=b.left()||a.getRight()!=b.right()||a.getHeight()!=b.height()){throw new IllegalArgumentException("Map geometry");}}
+            var players=v.getFightersList().stream().map(FightSnapshotCodec::decode).toList();
+            for(int i=0;i<2;i++){var f=players.get(i);if(f.player()!=i||f.health()<0||f.health()>100||f.energy()<0||f.energy()>100||Math.abs(f.facing())!=1||Math.abs(f.x())>10000||Math.abs(f.y())>10000){throw new IllegalArgumentException("Fighter bounds");}}
+            return new FightSnapshot(v.getTick(),SessionState.valueOf(v.getState()),FightSnapshot.Result.valueOf(v.getResult()),players,v.getProjectilesList().stream().map(FightSnapshotCodec::decode).toList(),v.getImpactsList().stream().map(FightSnapshotCodec::decode).toList(),v.getHitstopTicks(),map,v.getUltimatesList().stream().map(FightSnapshotCodec::decode).toList(),v.getTeleportsList().stream().map(FightSnapshotCodec::decode).toList());
+        }catch(com.google.protobuf.InvalidProtocolBufferException e){throw new IllegalArgumentException("Malformed Fight snapshot",e);}
+    }
+    @Override public String outcome(FightSnapshot s){return s.result().name();}
+    @Override public int entityCount(FightSnapshot s){return s.fighters().size()+s.projectiles().size()+s.ultimates().size()+s.teleports().size();}
+}

@@ -1,0 +1,92 @@
+plugins { id 'application' }
+dependencies {
+    implementation project(':protocol')
+    implementation project(':network-transport')
+    implementation project(':game-api')
+    implementation project(':game-tank')
+    implementation project(':game-online')
+    implementation project(':platform-api')
+    implementation platform(libs.netty.bom)
+    implementation libs.netty.transport
+    implementation libs.netty.codec.base
+    implementation libs.netty.handler
+    testImplementation platform(libs.junit.bom)
+    testImplementation libs.junit.jupiter
+    testRuntimeOnly libs.junit.launcher
+}
+application {
+    mainClass = 'dev.gamecore.server.GameServerMain'
+    applicationName = 'GameCore-TankServer'
+}
+tasks.named('run') { standardInput = System.in }
+tasks.named('test') {
+    systemProperty 'io.netty.leakDetection.level', 'paranoid'
+    // 生命周期测试启动真正的独立JVM，避免在JUnit进程内模拟System.in和shutdown hook。
+    systemProperty 'gamecore.serverClasspath', sourceSets.main.runtimeClasspath.asPath
+}
+distributions {
+    main {
+        contents {
+            from(rootProject.file('opensource_application/Netty')) {
+                into 'third-party/Netty'; include 'LICENSE.txt', 'NOTICE.txt', 'license/**'
+            }
+            from(rootProject.file('opensource_application/JCTools')) { into 'third-party/JCTools'; include 'LICENSE' }
+            from(rootProject.file('opensource_application/Protobuf')) { into 'third-party/Protobuf'; include 'LICENSE' }
+        }
+    }
+}
+
+// Linux包只包含无图形节点和可选平台BootJar；发行ID由调用方固定，不能用同名版本覆盖已发布目录。
+def releaseId = providers.gradleProperty('releaseId').orElse('0.1.0-stage10')
+def releaseTree = layout.buildDirectory.dir(releaseId.map { "linux-release/gamecore-${it}" })
+tasks.register('stageLinuxRelease', Sync) {
+    dependsOn tasks.named('installDist'), project(':platform-service').tasks.named('bootJar')
+    into releaseTree
+    from(tasks.named('installDist').map { it.destinationDir }) { into 'server' }
+    from(project(':platform-service').tasks.named('bootJar').flatMap { it.archiveFile }) { into 'platform'; rename { 'platform-service.jar' } }
+    from(rootProject.file('deploy')) { into 'deploy'; exclude '**/private/**', '**/*.key', '**/*.pem', '**/*.p12', '**/*.pfx', '**/*.env', '**/.env*', '**/__pycache__/**', '**/*.pyc' }
+    from(rootProject.file('THIRD_PARTY_NOTICES.md'))
+    from(rootProject.file('opensource_application')) { into 'third-party'; exclude '历史/**'; include '**/LICENSE*', '**/NOTICE*', '**/license/**', '**/许可证*', 'dependency-metadata.json' }
+    doFirst { if (!(releaseId.get() ==~ /[a-zA-Z0-9][a-zA-Z0-9._-]{0,63}/) || releaseId.get().contains('..')) { throw new GradleException('Invalid releaseId') } }
+    doLast {
+        def base = releaseTree.get().asFile.toPath()
+        java.nio.file.Files.writeString(base.resolve('RELEASE'), releaseId.get() + '\n', java.nio.charset.StandardCharsets.UTF_8)
+        java.nio.file.Files.writeString(base.resolve('BUILD.json'), groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson([
+            releaseId: releaseId.get(), java: System.getProperty('java.runtime.version'), gradle: gradle.gradleVersion,
+            sourceState: 'workspace; SHA256 inventory is authoritative, not an assertion of a clean Git checkout'
+        ])) + '\n', java.nio.charset.StandardCharsets.UTF_8)
+        def sources = rootProject.fileTree(rootProject.projectDir) {
+            include '**/src/main/**/*.java', '**/src/main/**/*.proto', '**/src/main/**/*.sql', '**/src/main/**/*.properties', '**/build.gradle', 'settings.gradle', 'gradle/libs.versions.toml', 'gradle/wrapper/gradle-wrapper.properties'
+            exclude '**/build/**', '.gradle/**'
+        }.files.sort { a,b -> a.path <=> b.path }.collect { path ->
+            java.security.MessageDigest.getInstance('SHA-256').digest(path.bytes).encodeHex().toString() + '  ' + rootProject.projectDir.toPath().relativize(path.toPath()).toString().replace('\\','/')
+        }.join('\n') + '\n'
+        java.nio.file.Files.writeString(base.resolve('SOURCE_SHA256SUMS'), sources, java.nio.charset.StandardCharsets.UTF_8)
+        def paths = []
+        java.nio.file.Files.walk(base).withCloseable { stream -> stream.filter { java.nio.file.Files.isRegularFile(it) }.forEach { paths.add(it) } }
+        def sums = paths.sort { a,b -> base.relativize(a).toString() <=> base.relativize(b).toString() }.collect { path ->
+            def digest = java.security.MessageDigest.getInstance('SHA-256').digest(java.nio.file.Files.readAllBytes(path)).encodeHex().toString()
+            digest + '  ' + base.relativize(path).toString().replace('\\','/')
+        }.join('\n') + '\n'
+        java.nio.file.Files.writeString(base.resolve('SHA256SUMS'), sums, java.nio.charset.StandardCharsets.UTF_8)
+    }
+}
+tasks.register('linuxRelease', Tar) {
+    dependsOn tasks.named('stageLinuxRelease')
+    archiveBaseName = 'gamecore-linux'
+    archiveVersion = releaseId
+    archiveExtension = 'tar.gz'
+    compression = Compression.GZIP
+    destinationDirectory = layout.buildDirectory.dir('distributions')
+    into(releaseId.map { "gamecore-${it}" }) { from releaseTree }
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+    filePermissions { unix('0644') }
+    dirPermissions { unix('0755') }
+    filesMatching('**/scripts/*.sh') { permissions { unix('0755') } }
+    filesMatching('**/server/bin/*') { permissions { unix('0755') } }
+    doLast {
+        def file = archiveFile.get().asFile
+        new File(file.parentFile,file.name+'.sha256').text = java.security.MessageDigest.getInstance('SHA-256').digest(file.bytes).encodeHex().toString() + '  ' + file.name + '\n'
+    }
+}

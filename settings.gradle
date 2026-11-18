@@ -1,0 +1,22 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+    }
+}
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        mavenCentral()
+    }
+}
+
+rootProject.name = 'gamecore'
+include 'game-api', 'game-snake', 'game-tank', 'game-fight', 'client', 'lwjgl3'
+include 'protocol', 'game-server'
+include 'network-transport'
+
+
+include 'game-online'
+
+include 'platform-api', 'platform-service'

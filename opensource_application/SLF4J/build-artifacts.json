@@ -1,0 +1,10 @@
+[
+  {
+    "group": "org.slf4j",
+    "name": "slf4j-api",
+    "version": "1.7.36",
+    "bytes": 41125,
+    "sha256": "d3ef575e3e4979678dc01bf1dcce51021493b4d11fb7f1be8ad982877c16a1c0",
+    "licenses": []
+  }
+]

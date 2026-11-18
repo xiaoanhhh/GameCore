@@ -1,0 +1,10 @@
+[
+  {
+    "group": "org.antlr",
+    "name": "antlr4-runtime",
+    "version": "4.7.2",
+    "bytes": 337904,
+    "sha256": "4c518b87d4bdff8b44cd8cbc1af816e944b62a3fe5b80b781501cf1f4759bbc4",
+    "licenses": []
+  }
+]

@@ -1,0 +1,18 @@
+[
+  {
+    "group": "org.flywaydb",
+    "name": "flyway-core",
+    "version": "12.4.0",
+    "bytes": 767940,
+    "sha256": "c3f93df1f3e0c9d14652adb5ade97401f2ede503859ac693c2af5c06e2797799",
+    "licenses": []
+  },
+  {
+    "group": "org.flywaydb",
+    "name": "flyway-database-postgresql",
+    "version": "12.4.0",
+    "bytes": 48012,
+    "sha256": "abc075a5c3cbf37dc64b28fec7e2398fb14f31109f7ab6271854738797407b85",
+    "licenses": []
+  }
+]

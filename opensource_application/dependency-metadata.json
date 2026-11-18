@@ -1,0 +1,779 @@
+[
+  {
+    "Group": "com.badlogicgames.gdx",
+    "Artifact": "gdx",
+    "Version": "1.14.2",
+    "License": [
+      {
+        "Name": "The Apache Software License, Version 2.0",
+        "Url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+      }
+    ]
+  },
+  {
+    "Group": "com.badlogicgames.gdx",
+    "Artifact": "gdx-backend-lwjgl3",
+    "Version": "1.14.2",
+    "License": [
+      {
+        "Name": "The Apache Software License, Version 2.0",
+        "Url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+      }
+    ]
+  },
+  {
+    "Group": "com.badlogicgames.gdx",
+    "Artifact": "gdx-freetype",
+    "Version": "1.14.2",
+    "License": [
+      {
+        "Name": "The Apache Software License, Version 2.0",
+        "Url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+      }
+    ]
+  },
+  {
+    "Group": "com.badlogicgames.gdx",
+    "Artifact": "gdx-freetype-platform",
+    "Version": "1.14.2",
+    "License": [
+      {
+        "Name": "The Apache Software License, Version 2.0",
+        "Url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+      }
+    ]
+  },
+  {
+    "Group": "com.badlogicgames.gdx",
+    "Artifact": "gdx-jnigen-loader",
+    "Version": "2.5.2",
+    "License": [
+      {
+        "Name": "The Apache Software License, Version 2.0",
+        "Url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+      }
+    ]
+  },
+  {
+    "Group": "com.badlogicgames.gdx",
+    "Artifact": "gdx-platform",
+    "Version": "1.14.2",
+    "License": [
+      {
+        "Name": "The Apache Software License, Version 2.0",
+        "Url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+      }
+    ]
+  },
+  {
+    "Group": "com.badlogicgames.jlayer",
+    "Artifact": "jlayer",
+    "Version": "1.0.1-gdx",
+    "License": [
+      {
+        "Name": "GNU Lesser General Public License (LGPL), Version 2.1",
+        "Url": "http://www.fsf.org/licensing/licenses/lgpl.txt"
+      }
+    ]
+  },
+  {
+    "Group": "org.apiguardian",
+    "Artifact": "apiguardian-api",
+    "Version": "1.1.2",
+    "License": [
+      {
+        "Name": "The Apache License, Version 2.0",
+        "Url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+      }
+    ]
+  },
+  {
+    "Group": "org.jcraft",
+    "Artifact": "jorbis",
+    "Version": "0.0.17",
+    "License": [
+      {
+        "Name": "GNU Lesser General Public License",
+        "Url": "http://www.gnu.org/copyleft/lesser.html"
+      }
+    ]
+  },
+  {
+    "Group": "org.junit",
+    "Artifact": "junit-bom",
+    "Version": "5.14.2",
+    "License": [
+      {
+        "Name": "Eclipse Public License v2.0",
+        "Url": "https://www.eclipse.org/legal/epl-v20.html"
+      }
+    ]
+  },
+  {
+    "Group": "org.junit.jupiter",
+    "Artifact": "junit-jupiter",
+    "Version": "5.14.2",
+    "License": [
+      {
+        "Name": "Eclipse Public License v2.0",
+        "Url": "https://www.eclipse.org/legal/epl-v20.html"
+      }
+    ]
+  },
+  {
+    "Group": "org.junit.jupiter",
+    "Artifact": "junit-jupiter-api",
+    "Version": "5.14.2",
+    "License": [
+      {
+        "Name": "Eclipse Public License v2.0",
+        "Url": "https://www.eclipse.org/legal/epl-v20.html"
+      }
+    ]
+  },
+  {
+    "Group": "org.junit.jupiter",
+    "Artifact": "junit-jupiter-engine",
+    "Version": "5.14.2",
+    "License": [
+      {
+        "Name": "Eclipse Public License v2.0",
+        "Url": "https://www.eclipse.org/legal/epl-v20.html"
+      }
+    ]
+  },
+  {
+    "Group": "org.junit.jupiter",
+    "Artifact": "junit-jupiter-params",
+    "Version": "5.14.2",
+    "License": [
+      {
+        "Name": "Eclipse Public License v2.0",
+        "Url": "https://www.eclipse.org/legal/epl-v20.html"
+      }
+    ]
+  },
+  {
+    "Group": "org.junit.platform",
+    "Artifact": "junit-platform-commons",
+    "Version": "1.14.2",
+    "License": [
+      {
+        "Name": "Eclipse Public License v2.0",
+        "Url": "https://www.eclipse.org/legal/epl-v20.html"
+      }
+    ]
+  },
+  {
+    "Group": "org.junit.platform",
+    "Artifact": "junit-platform-engine",
+    "Version": "1.14.2",
+    "License": [
+      {
+        "Name": "Eclipse Public License v2.0",
+        "Url": "https://www.eclipse.org/legal/epl-v20.html"
+      }
+    ]
+  },
+  {
+    "Group": "org.junit.platform",
+    "Artifact": "junit-platform-launcher",
+    "Version": "1.14.2",
+    "License": [
+      {
+        "Name": "Eclipse Public License v2.0",
+        "Url": "https://www.eclipse.org/legal/epl-v20.html"
+      }
+    ]
+  },
+  {
+    "Group": "org.lwjgl",
+    "Artifact": "lwjgl",
+    "Version": "3.3.3",
+    "License": [
+      {
+        "Name": "BSD-3-Clause",
+        "Url": "https://www.lwjgl.org/license"
+      }
+    ]
+  },
+  {
+    "Group": "org.lwjgl",
+    "Artifact": "lwjgl-glfw",
+    "Version": "3.3.3",
+    "License": [
+      {
+        "Name": "BSD-3-Clause",
+        "Url": "https://www.lwjgl.org/license"
+      }
+    ]
+  },
+  {
+    "Group": "org.lwjgl",
+    "Artifact": "lwjgl-jemalloc",
+    "Version": "3.3.3",
+    "License": [
+      {
+        "Name": "BSD-3-Clause",
+        "Url": "https://www.lwjgl.org/license"
+      }
+    ]
+  },
+  {
+    "Group": "org.lwjgl",
+    "Artifact": "lwjgl-openal",
+    "Version": "3.3.3",
+    "License": [
+      {
+        "Name": "BSD-3-Clause",
+        "Url": "https://www.lwjgl.org/license"
+      }
+    ]
+  },
+  {
+    "Group": "org.lwjgl",
+    "Artifact": "lwjgl-opengl",
+    "Version": "3.3.3",
+    "License": [
+      {
+        "Name": "BSD-3-Clause",
+        "Url": "https://www.lwjgl.org/license"
+      }
+    ]
+  },
+  {
+    "Group": "org.lwjgl",
+    "Artifact": "lwjgl-stb",
+    "Version": "3.3.3",
+    "License": [
+      {
+        "Name": "BSD-3-Clause",
+        "Url": "https://www.lwjgl.org/license"
+      }
+    ]
+  },
+  {
+    "Group": "org.opentest4j",
+    "Artifact": "opentest4j",
+    "Version": "1.3.0",
+    "License": [
+      {
+        "Name": "The Apache License, Version 2.0",
+        "Url": "https://www.apache.org/licenses/LICENSE-2.0.txt"
+      }
+    ]
+  },
+  {
+    "Group": "io.netty",
+    "Artifact": "netty-bom",
+    "Version": "4.2.19.Final",
+    "License": [
+      {
+        "Name": "Apache License, Version 2.0",
+        "Url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ],
+    "Scope": "network-lab, network-transport: client and game-server",
+    "Source": "https://github.com/netty/netty/tree/netty-4.2.19.Final"
+  },
+  {
+    "Group": "io.netty",
+    "Artifact": "netty-transport",
+    "Version": "4.2.19.Final",
+    "License": [
+      {
+        "Name": "Apache License, Version 2.0",
+        "Url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ],
+    "Scope": "network-lab, network-transport: client and game-server",
+    "Source": "https://github.com/netty/netty/tree/netty-4.2.19.Final"
+  },
+  {
+    "Group": "io.netty",
+    "Artifact": "netty-codec-base",
+    "Version": "4.2.19.Final",
+    "License": [
+      {
+        "Name": "Apache License, Version 2.0",
+        "Url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ],
+    "Scope": "network-lab, network-transport: client and game-server",
+    "Source": "https://github.com/netty/netty/tree/netty-4.2.19.Final"
+  },
+  {
+    "Group": "io.netty",
+    "Artifact": "netty-common",
+    "Version": "4.2.19.Final",
+    "License": [
+      {
+        "Name": "Apache License, Version 2.0",
+        "Url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ],
+    "Scope": "network-lab, network-transport: client and game-server",
+    "Source": "https://github.com/netty/netty/tree/netty-4.2.19.Final"
+  },
+  {
+    "Group": "io.netty",
+    "Artifact": "netty-buffer",
+    "Version": "4.2.19.Final",
+    "License": [
+      {
+        "Name": "Apache License, Version 2.0",
+        "Url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ],
+    "Scope": "network-lab, network-transport: client and game-server",
+    "Source": "https://github.com/netty/netty/tree/netty-4.2.19.Final"
+  },
+  {
+    "Group": "io.netty",
+    "Artifact": "netty-resolver",
+    "Version": "4.2.19.Final",
+    "License": [
+      {
+        "Name": "Apache License, Version 2.0",
+        "Url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ],
+    "Scope": "network-lab, network-transport: client and game-server",
+    "Source": "https://github.com/netty/netty/tree/netty-4.2.19.Final"
+  },
+  {
+    "Group": "org.jctools",
+    "Artifact": "jctools-core",
+    "Version": "4.0.7",
+    "License": [
+      {
+        "Name": "Apache License, Version 2.0",
+        "Url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ],
+    "EmbeddedIn": "io.netty:netty-common:4.2.19.Final",
+    "Scope": "network-lab, client and game-server shaded, not a separately resolved jar",
+    "Source": "https://github.com/JCTools/JCTools/tree/v4.0.7"
+  },
+  {
+    "Group": "org.jctools",
+    "Artifact": "jctools-core-jdk11",
+    "Version": "4.0.7",
+    "License": [
+      {
+        "Name": "Apache License, Version 2.0",
+        "Url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ],
+    "EmbeddedIn": "io.netty:netty-common:4.2.19.Final",
+    "Scope": "network-lab, client and game-server shaded, not a separately resolved jar",
+    "Source": "https://github.com/JCTools/JCTools/tree/v4.0.7"
+  },
+  {
+    "Group": "io.netty",
+    "Artifact": "netty-handler",
+    "Version": "4.2.19.Final",
+    "License": [
+      {
+        "Name": "Apache-2.0",
+        "Url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ],
+    "Scope": "network-transport: client and game-server runtime",
+    "Source": "https://github.com/netty/netty/tree/netty-4.2.19.Final"
+  },
+  {
+    "Group": "io.netty",
+    "Artifact": "netty-transport-native-unix-common",
+    "Version": "4.2.19.Final",
+    "License": [
+      {
+        "Name": "Apache-2.0",
+        "Url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ],
+    "Scope": "network-transport: client and game-server runtime",
+    "Source": "https://github.com/netty/netty/tree/netty-4.2.19.Final"
+  },
+  {
+    "Group": "com.google.protobuf",
+    "Artifact": "protobuf-java",
+    "Version": "4.34.2",
+    "License": [
+      {
+        "Name": "BSD-3-Clause",
+        "Url": "https://opensource.org/license/bsd-3-clause"
+      }
+    ],
+    "Scope": "protocol api, client and game-server runtime",
+    "Source": "https://github.com/protocolbuffers/protobuf/tree/v34.2"
+  },
+  {
+    "Group": "com.google.protobuf",
+    "Artifact": "protoc",
+    "Version": "4.34.2",
+    "License": [
+      {
+        "Name": "BSD-3-Clause",
+        "Url": "https://opensource.org/license/bsd-3-clause"
+      }
+    ],
+    "Scope": "protocol code generation only",
+    "Source": "https://github.com/protocolbuffers/protobuf/tree/v34.2"
+  },
+  {
+    "Group": "com.google.protobuf",
+    "Artifact": "com.google.protobuf.gradle.plugin",
+    "Version": "0.10.0",
+    "License": [
+      {
+        "Name": "BSD-3-Clause",
+        "Url": "https://opensource.org/license/bsd-3-clause"
+      }
+    ],
+    "Scope": "build plugin marker POM",
+    "Source": "https://github.com/google/protobuf-gradle-plugin/tree/v0.10.0"
+  },
+  {
+    "Group": "com.google.protobuf",
+    "Artifact": "protobuf-gradle-plugin",
+    "Version": "0.10.0",
+    "License": [
+      {
+        "Name": "BSD-3-Clause",
+        "Url": "https://opensource.org/license/bsd-3-clause"
+      }
+    ],
+    "Scope": "build plugin only",
+    "Source": "https://github.com/google/protobuf-gradle-plugin/tree/v0.10.0"
+  },
+  {
+    "Group": "com.google.gradle",
+    "Artifact": "osdetector-gradle-plugin",
+    "Version": "1.7.3",
+    "License": [
+      {
+        "Name": "Apache-2.0",
+        "Url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ],
+    "Scope": "build transitive only",
+    "Source": "https://github.com/google/osdetector-gradle-plugin/tree/v1.7.3"
+  },
+  {
+    "Group": "kr.motd.maven",
+    "Artifact": "os-maven-plugin",
+    "Version": "1.7.1",
+    "License": [
+      {
+        "Name": "Apache-2.0",
+        "Url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ],
+    "Scope": "build transitive only",
+    "Source": "https://github.com/trustin/os-maven-plugin/tree/os-maven-plugin-1.7.1"
+  },
+  {
+    "Group": "com.google.code.findbugs",
+    "Artifact": "jsr305",
+    "Version": "3.0.2",
+    "License": [
+      {
+        "Name": "Apache-2.0",
+        "Url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ],
+    "Scope": "build transitive only",
+    "Source": "https://code.google.com/p/jsr-305/"
+  },
+  {
+    "Group": "io.netty",
+    "Artifact": "netty-resolver-dns",
+    "Version": "4.2.19.Final",
+    "License": [
+      {
+        "Name": "Apache-2.0",
+        "Url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ],
+    "Scope": "client runtime (asynchronous DNS)",
+    "Source": "https://github.com/netty/netty/tree/netty-4.2.19.Final"
+  },
+  {
+    "Group": "io.netty",
+    "Artifact": "netty-codec-dns",
+    "Version": "4.2.19.Final",
+    "License": [
+      {
+        "Name": "Apache-2.0",
+        "Url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ],
+    "Scope": "client runtime (asynchronous DNS)",
+    "Source": "https://github.com/netty/netty/tree/netty-4.2.19.Final"
+  },
+  {
+    "Group": "pypi",
+    "Artifact": "acme",
+    "Version": "5.9.0",
+    "License": [
+      {
+        "Name": "Apache-2.0",
+        "Url": "https://pypi.org/project/acme/5.9.0/"
+      }
+    ],
+    "Scope": "cloud certificate tooling"
+  },
+  {
+    "Group": "pypi",
+    "Artifact": "certbot",
+    "Version": "5.9.0",
+    "License": [
+      {
+        "Name": "Apache-2.0",
+        "Url": "https://pypi.org/project/certbot/5.9.0/"
+      }
+    ],
+    "Scope": "cloud certificate tooling"
+  },
+  {
+    "Group": "pypi",
+    "Artifact": "certifi",
+    "Version": "2026.10.23",
+    "License": [
+      {
+        "Name": "MPL-2.0",
+        "Url": "https://pypi.org/project/certifi/2026.10.23/"
+      }
+    ],
+    "Scope": "cloud certificate tooling"
+  },
+  {
+    "Group": "pypi",
+    "Artifact": "cffi",
+    "Version": "2.1.1",
+    "License": [
+      {
+        "Name": "MIT-0",
+        "Url": "https://pypi.org/project/cffi/2.1.1/"
+      }
+    ],
+    "Scope": "cloud certificate tooling"
+  },
+  {
+    "Group": "pypi",
+    "Artifact": "charset-normalizer",
+    "Version": "3.5.2",
+    "License": [
+      {
+        "Name": "MIT",
+        "Url": "https://pypi.org/project/charset-normalizer/3.5.2/"
+      }
+    ],
+    "Scope": "cloud certificate tooling"
+  },
+  {
+    "Group": "pypi",
+    "Artifact": "ConfigArgParse",
+    "Version": "1.9.0",
+    "License": [
+      {
+        "Name": "MIT",
+        "Url": "https://pypi.org/project/ConfigArgParse/1.9.0/"
+      }
+    ],
+    "Scope": "cloud certificate tooling"
+  },
+  {
+    "Group": "pypi",
+    "Artifact": "configobj",
+    "Version": "5.0.9",
+    "License": [
+      {
+        "Name": "BSD-3-Clause",
+        "Url": "https://pypi.org/project/configobj/5.0.9/"
+      }
+    ],
+    "Scope": "cloud certificate tooling"
+  },
+  {
+    "Group": "pypi",
+    "Artifact": "cryptography",
+    "Version": "50.0.2",
+    "License": [
+      {
+        "Name": "Apache-2.0 OR BSD-3-Clause",
+        "Url": "https://pypi.org/project/cryptography/50.0.2/"
+      }
+    ],
+    "Scope": "cloud certificate tooling"
+  },
+  {
+    "Group": "pypi",
+    "Artifact": "distro",
+    "Version": "1.9.0",
+    "License": [
+      {
+        "Name": "Apache License, Version 2.0",
+        "Url": "https://pypi.org/project/distro/1.9.0/"
+      }
+    ],
+    "Scope": "cloud certificate tooling"
+  },
+  {
+    "Group": "pypi",
+    "Artifact": "idna",
+    "Version": "3.20",
+    "License": [
+      {
+        "Name": "BSD-3-Clause",
+        "Url": "https://pypi.org/project/idna/3.20/"
+      }
+    ],
+    "Scope": "cloud certificate tooling"
+  },
+  {
+    "Group": "pypi",
+    "Artifact": "josepy",
+    "Version": "2.2.0",
+    "License": [
+      {
+        "Name": "Apache-2.0",
+        "Url": "https://pypi.org/project/josepy/2.2.0/"
+      }
+    ],
+    "Scope": "cloud certificate tooling"
+  },
+  {
+    "Group": "pypi",
+    "Artifact": "parsedatetime",
+    "Version": "2.6",
+    "License": [
+      {
+        "Name": "Apache License 2.0",
+        "Url": "https://pypi.org/project/parsedatetime/2.6/"
+      }
+    ],
+    "Scope": "cloud certificate tooling"
+  },
+  {
+    "Group": "pypi",
+    "Artifact": "pip",
+    "Version": "22.0.2",
+    "License": [
+      {
+        "Name": "MIT",
+        "Url": "https://pypi.org/project/pip/22.0.2/"
+      }
+    ],
+    "Scope": "cloud venv bootstrap"
+  },
+  {
+    "Group": "pypi",
+    "Artifact": "pycparser",
+    "Version": "3.11",
+    "License": [
+      {
+        "Name": "BSD-3-Clause",
+        "Url": "https://pypi.org/project/pycparser/3.11/"
+      }
+    ],
+    "Scope": "cloud certificate tooling"
+  },
+  {
+    "Group": "pypi",
+    "Artifact": "pyOpenSSL",
+    "Version": "26.4.0",
+    "License": [
+      {
+        "Name": "Apache License, Version 2.0",
+        "Url": "https://pypi.org/project/pyOpenSSL/26.4.0/"
+      }
+    ],
+    "Scope": "cloud certificate tooling"
+  },
+  {
+    "Group": "pypi",
+    "Artifact": "pyRFC3339",
+    "Version": "2.1.0",
+    "License": [
+      {
+        "Name": "MIT",
+        "Url": "https://pypi.org/project/pyRFC3339/2.1.0/"
+      }
+    ],
+    "Scope": "cloud certificate tooling"
+  },
+  {
+    "Group": "pypi",
+    "Artifact": "requests",
+    "Version": "2.34.2",
+    "License": [
+      {
+        "Name": "Apache-2.0",
+        "Url": "https://pypi.org/project/requests/2.34.2/"
+      }
+    ],
+    "Scope": "cloud certificate tooling"
+  },
+  {
+    "Group": "pypi",
+    "Artifact": "setuptools",
+    "Version": "59.6.0",
+    "License": [
+      {
+        "Name": "MIT",
+        "Url": "https://pypi.org/project/setuptools/59.6.0/"
+      }
+    ],
+    "Scope": "cloud venv bootstrap"
+  },
+  {
+    "Group": "pypi",
+    "Artifact": "typing_extensions",
+    "Version": "4.16.0",
+    "License": [
+      {
+        "Name": "PSF-2.0",
+        "Url": "https://pypi.org/project/typing_extensions/4.16.0/"
+      }
+    ],
+    "Scope": "cloud certificate tooling"
+  },
+  {
+    "Group": "pypi",
+    "Artifact": "urllib3",
+    "Version": "2.8.0",
+    "License": [
+      {
+        "Name": "MIT",
+        "Url": "https://pypi.org/project/urllib3/2.8.0/"
+      }
+    ],
+    "Scope": "cloud certificate tooling"
+  },
+  {
+    "Group": "org.openjdk",
+    "Artifact": "temurin-runtime-windows-x64",
+    "Version": "21.0.13+9",
+    "License": [
+      {
+        "Name": "GPL-2.0 with Classpath exception; component notices retained",
+        "Url": "https://adoptium.net/docs/faq"
+      }
+    ],
+    "Scope": "Windows portable redistribution"
+  },
+  {
+    "Group": "org.openjdk",
+    "Artifact": "jpackage-launcher-windows-x64",
+    "Version": "21.0.13+9",
+    "License": [
+      {
+        "Name": "GPL-2.0 with Classpath exception; component notices retained",
+        "Url": "https://adoptium.net/docs/faq"
+      }
+    ],
+    "Scope": "Windows portable redistribution"
+  }
+]

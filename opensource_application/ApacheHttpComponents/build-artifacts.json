@@ -1,0 +1,26 @@
+[
+  {
+    "group": "org.apache.httpcomponents.client5",
+    "name": "httpclient5",
+    "version": "5.6.5",
+    "bytes": 1059031,
+    "sha256": "a10b555f7c85a720d1011a086d679d854b155816cde91a40198cc98c2b0867e8",
+    "licenses": []
+  },
+  {
+    "group": "org.apache.httpcomponents.core5",
+    "name": "httpcore5",
+    "version": "5.4.4",
+    "bytes": 955270,
+    "sha256": "b08e3c3a440fec2029e89980134c7c787dd6796454641ad1eafb81478d7e8b0b",
+    "licenses": []
+  },
+  {
+    "group": "org.apache.httpcomponents.core5",
+    "name": "httpcore5-h2",
+    "version": "5.4.4",
+    "bytes": 263674,
+    "sha256": "9a61441889f9b222ce99581977cc549b4dfca7ac9d2841582c1e57a31fa65b48",
+    "licenses": []
+  }
+]

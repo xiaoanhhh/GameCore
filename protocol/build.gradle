@@ -1,0 +1,14 @@
+plugins {
+    alias(libs.plugins.protobuf)
+}
+
+// protoc与Java运行时固定到同一版本；生成文件仅存在于build，不手工维护或提交。
+dependencies {
+    api libs.protobuf.java
+    testImplementation platform(libs.junit.bom)
+    testImplementation libs.junit.jupiter
+    testRuntimeOnly libs.junit.launcher
+}
+protobuf {
+    protoc { artifact = "com.google.protobuf:protoc:${libs.versions.protobuf.runtime.get()}" }
+}

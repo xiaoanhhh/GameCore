@@ -1,0 +1,11 @@
+// 网络游戏适配层：复用纯规则，定义稳定协议投影；不依赖Netty/libGDX/数据库。
+dependencies {
+    api project(':game-api')
+    api project(':protocol')
+    api project(':game-tank')
+    api project(':game-snake')
+    api project(':game-fight')
+    testImplementation platform(libs.junit.bom)
+    testImplementation libs.junit.jupiter
+    testRuntimeOnly libs.junit.launcher
+}

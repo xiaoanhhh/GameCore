@@ -1,0 +1,62 @@
+syntax = "proto3";
+package gamecore.online.v2;
+option java_package = "dev.gamecore.protocol";
+option java_outer_classname = "GameProtocol";
+// 多游戏端点v2；旧Tank v1字段/端点保留，不复用已发布字段含义。
+message Envelope {
+  uint32 protocol_version = 1; uint64 request_id = 2;
+  oneof payload {
+    Hello hello = 10; Welcome welcome = 11; Join join = 12; Joined joined = 13;
+    Input input = 14; Snapshot snapshot = 15; EventBatch events = 16; Result result = 17;
+    Error error = 18; Heartbeat heartbeat = 19; RoomControl control = 20; RoomState room_state = 21;
+  }
+}
+message Hello { string client_name = 1; }
+message GameType { string game_id = 1; string game_version = 2; string rules_version = 3; uint32 min_players = 4; uint32 max_players = 5; uint32 simulation_tps = 6; uint32 default_room_tps = 7; }
+message Option { string key = 1; string value = 2; }
+message RuleConfig { repeated Option options = 1; uint32 players = 2; uint32 room_tps = 3; }
+message RoomInfo { string room_id = 1; GameType game = 2; RuleConfig config = 3; uint32 players = 4; string status = 5; }
+message Welcome { string connection_id = 1; string credential = 2; repeated GameType games = 3; repeated RoomInfo rooms = 4; bool session_controls = 5; }
+message Join { string room_id = 1; string game_id = 2; string game_version = 3; string rules_version = 4; string credential = 5; string platform_ticket = 6; bool interactive = 7; }
+message Joined { string room_id = 1; string match_id = 2; uint32 player_slot = 3; GameType game = 4; RuleConfig config = 5; }
+message Input { string room_id = 1; string match_id = 2; string game_id = 3; uint64 sequence = 4; uint64 target_tick = 5; bytes command = 6; uint64 input_epoch = 7; }
+// 只允许意图/白名单配置；身份来自连接，不能上传状态、地图几何或玩家槽位。
+enum RoomAction { ACTION_NONE = 0; SELECT = 1; READY = 2; UNREADY = 3; PAUSE = 4; RESUME = 5; RESTART = 6; CANCEL_RESTART = 7; SKIP_OPENING = 8; }
+message RoomControl { string room_id = 1; string match_id = 2; uint64 sequence = 3; uint64 revision = 4; RoomAction action = 5; repeated Option choices = 6; }
+message RoomSeat { uint32 slot = 1; bool ready = 2; bool resume = 3; bool restart = 4; bool skip = 5; }
+message RoomState { string room_id = 1; string match_id = 2; string phase = 3; RuleConfig config = 4; uint64 revision = 5; uint64 input_epoch = 6; repeated RoomSeat seats = 7; bool paused = 8; uint32 opening_millis = 9; int64 opening_seed = 10; }
+message Ack { uint32 player_slot = 1; uint64 received = 2; uint64 executed = 3; }
+message Snapshot { string room_id = 1; string match_id = 2; string game_id = 3; uint64 server_tick = 4; uint64 simulation_tick = 5; string status = 6; bytes state = 7; repeated Ack acks = 8; bytes state_hash = 9; }
+message EventBatch { string room_id = 1; string match_id = 2; repeated GameEvent events = 3; }
+message Result { string room_id = 1; string match_id = 2; string outcome = 3; string reason = 4; Snapshot final_snapshot = 5; }
+message Error { string code = 1; string description = 2; uint64 input_sequence = 3; }
+message Heartbeat { }
+// command必须为GameInput，oneof防止不同游戏的相同字段布局被错误解读。
+message GameInput { oneof payload { TankInput tank = 1; SnakeInput snake = 2; FightInput fight = 3; } }
+message TankInput { sint32 throttle = 1; sint32 turn = 2; bool fire = 3; }
+enum SnakeDirection { SNAKE_NONE = 0; UP = 1; DOWN = 2; LEFT = 3; RIGHT = 4; }
+message SnakeInput { SnakeDirection direction = 1; }
+message GameSnapshot { oneof payload { TankView tank = 1; SnakeView snake = 2; FightView fight = 3; } }
+message Point { double x = 1; double y = 2; }
+message Cell { sint32 x = 1; sint32 y = 2; }
+message TankSpawn { Point position = 1; double heading = 2; }
+message RepairZone { double x = 1; double y = 2; double width = 3; double height = 4; }
+message TankMap { string id = 1; uint32 width = 2; uint32 height = 3; bytes walls = 4; repeated TankSpawn spawns = 5; repeated RepairZone repairs = 6; }
+message TankPlayer { uint32 slot = 1; Point position = 2; double heading = 3; Point velocity = 4; uint32 health = 5; uint32 cooldown = 6; }
+message TankBullet { uint64 id = 1; uint32 owner = 2; Point position = 3; Point velocity = 4; uint32 life = 5; }
+message TankEvent { string type = 1; sint32 actor = 2; sint32 target = 3; Point position = 4; }
+message TankView { TankMap map = 1; uint64 tick = 2; string state = 3; string result = 4; repeated TankPlayer players = 5; repeated TankBullet bullets = 6; repeated TankEvent events = 7; }
+message SnakePlayer { repeated Cell body = 1; SnakeDirection direction = 2; uint32 score = 3; string collision = 4; }
+message SnakeView { string mode = 1; string state = 2; string result = 3; uint64 movement_tick = 4; repeated SnakePlayer players = 5; repeated Cell obstacles = 6; optional Cell food = 7; uint64 simulation_tick = 8; uint32 movement_credit = 9; }
+// 展示事件只描述已发生事实；回放时绝不把它重新作为伤害指令执行。
+message GameEvent { uint64 tick = 1; string kind = 2; sint32 player = 3; sint32 previous = 4; sint32 current = 5; string result = 6; double x = 7; double y = 8; double heading = 9; }
+
+message FightInput { sint32 move = 1; bool jump = 2; bool punch = 3; bool ranged = 4; bool ultimate = 5; bool guard = 6; bool dash = 7; bool down = 8; bool laugh = 9; }
+message FightFighter { sint32 player = 1; string kind = 2; double x = 3; double y = 4; sint32 facing = 5; sint32 health = 6; double energy = 7; string action = 8; sint32 action_ticks = 9; sint32 stun_ticks = 10; sint32 slow_ticks = 11; double vx = 12; double vy = 13; bool grounded = 14; sint32 jump_count = 15; sint32 platform = 16; double travel = 17; sint32 pose_tick = 18; sint32 combo_count = 19; sint32 max_combo = 20; sint32 total_damage = 21; sint32 attacks = 22; sint32 hits = 23; sint32 teleport_cooldown = 24; int64 bound_by = 25; }
+message FightProjectile { sint32 owner = 1; string kind = 2; double x = 3; double y = 4; sint32 direction = 5; bool ultimate = 6; }
+message FightImpact { int64 id = 1; double x = 2; double y = 3; bool blocked = 4; string kind = 5; sint32 life = 6; sint32 damage = 7; sint32 direction = 8; bool ultimate = 9; sint32 attacker = 10; sint32 defender = 11; string attack = 12; }
+message FightStrike { sint32 index = 1; double x = 2; double y = 3; sint32 age = 4; bool aimed = 5; bool hit = 6; }
+message FightUltimate { int64 id = 1; sint32 owner = 2; string kind = 3; sint32 age = 4; double caster_x = 5; double caster_y = 6; double target_x = 7; double target_y = 8; bool captured = 9; bool missed = 10; repeated FightStrike strikes = 11; }
+message FightTeleport { int64 id = 1; sint32 owner = 2; double from_x = 3; double from_y = 4; double to_x = 5; double to_y = 6; sint32 direction = 7; sint32 age = 8; }
+message FightPlate { sint32 id = 1; double left = 2; double right = 3; double height = 4; }
+message FightView { int64 tick = 1; string state = 2; string result = 3; repeated FightFighter fighters = 4; repeated FightProjectile projectiles = 5; repeated FightImpact impacts = 6; sint32 hitstop_ticks = 7; string map = 8; repeated FightUltimate ultimates = 9; repeated FightTeleport teleports = 10; repeated FightPlate plates = 11; }

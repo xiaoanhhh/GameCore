@@ -1,0 +1,19 @@
+[
+  {
+    "group": "jakarta.annotation",
+    "name": "jakarta.annotation-api",
+    "version": "3.0.0",
+    "bytes": 26378,
+    "sha256": "b01f55552284cfb149411e64eabca75e942d26d2e1786b32914250e4330afaa2",
+    "licenses": [
+      {
+        "name": "EPL 2.0",
+        "url": "https://www.eclipse.org/legal/epl-2.0"
+      },
+      {
+        "name": "GPL2 w/ CPE",
+        "url": "https://www.gnu.org/software/classpath/license.html"
+      }
+    ]
+  }
+]

@@ -1,0 +1,15 @@
+[
+  {
+    "group": "com.google.code.findbugs",
+    "name": "jsr305",
+    "version": "3.0.2",
+    "bytes": 19936,
+    "sha256": "766ad2a0783f2687962c8ad74ceecc38a28b9f72a2d085ee438b7813e928d0c7",
+    "licenses": [
+      {
+        "name": "The Apache Software License, Version 2.0",
+        "url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+      }
+    ]
+  }
+]

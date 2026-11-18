@@ -1,0 +1,28 @@
+plugins {
+    id 'org.springframework.boot' version '4.1.2'
+}
+dependencies {
+    implementation platform('org.springframework.boot:spring-boot-dependencies:4.1.2')
+    implementation project(':platform-api')
+    implementation project(':game-online')
+    implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-flyway'
+    runtimeOnly 'org.flywaydb:flyway-database-postgresql'
+    runtimeOnly 'org.postgresql:postgresql'
+    testImplementation enforcedPlatform(libs.junit.bom)
+    testImplementation libs.junit.jupiter
+    testRuntimeOnly libs.junit.launcher
+    testImplementation project(':game-server')
+    testImplementation project(':network-transport')
+}
+tasks.named('test') { useJUnitPlatform { excludeTags 'postgres' } }
+tasks.register('postgresTest', Test) {
+    description = '真实PostgreSQL、HTTP与Netty平台交接；需先配置测试数据库。'
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+    useJUnitPlatform { includeTags 'postgres' }
+    shouldRunAfter tasks.named('test')
+}
+springBoot { mainClass = 'dev.gamecore.platform.PlatformApplication' }

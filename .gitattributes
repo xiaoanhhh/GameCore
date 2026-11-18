@@ -1,0 +1,9 @@
+# 迁移基线按清单逐字节入库，避免Git自动换行转换破坏交付哈希。
+# 日常新增/编辑文本继续遵循.editorconfig；不批量重写原源码、许可或验收证据。
+* -text
+* whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+*.jar binary
+*.png binary
+*.ttf binary
+*.wav binary
+*.pb binary

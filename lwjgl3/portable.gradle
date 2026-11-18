@@ -1,0 +1,155 @@
+// 只在显式调用时制作Windows x64应用；不向游戏/客户端运行时添加打包依赖。
+def imageParent = layout.buildDirectory.dir('portable')
+def imageDirectory = imageParent.map { it.dir('GameCore') }
+def packagingJdk = providers.gradleProperty('packagingJdk').orElse(providers.systemProperty('java.home'))
+def sourceBundle = providers.gradleProperty('runtimeSourceBundle')
+def desktopRelease = providers.gradleProperty('desktopRelease').orElse('0.1.0')
+def runtimeModules = 'java.se,jdk.unsupported,jdk.crypto.ec,jdk.crypto.mscapi,jdk.charsets,jdk.localedata,jdk.zipfs,jdk.management,jdk.unsupported.desktop'
+def noticeProjects = ['libGDX','LWJGL','FreeType','JLayer','JOrbis','gdx-jnigen','Netty','JCTools','Protobuf','Jackson','JSpecify','NotoSansSC']
+
+tasks.register('windowsAppImage', Exec) {
+    group = 'distribution'
+    description = '使用Temurin21制作自带运行环境、无需系统Java的Windows x64 GameCore.exe。'
+    dependsOn tasks.named('installDist')
+    inputs.dir(layout.buildDirectory.dir('install/GameCore'))
+    inputs.file(packagingJdk.map { new File(it, 'release') })
+    inputs.property('runtimeModules', runtimeModules)
+    inputs.property('desktopRelease', desktopRelease)
+    if (sourceBundle.isPresent()) { inputs.dir(sourceBundle) }
+    noticeProjects.each { name -> inputs.dir(rootProject.file('opensource_application/' + name)) }
+    outputs.dir(imageDirectory)
+    doFirst {
+        if (!System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+            throw new GradleException('windowsAppImage must run on Windows x64')
+        }
+        if (!(desktopRelease.get() ==~ /[A-Za-z0-9][A-Za-z0-9._-]{0,63}/) || desktopRelease.get().contains('..')) {
+            throw new GradleException('Invalid desktopRelease')
+        }
+        def jdk = new File(packagingJdk.get())
+        def info = new Properties()
+        new File(jdk, 'release').withInputStream { info.load(it) }
+        if (!info.getProperty('IMPLEMENTOR','').contains('Eclipse Adoptium') ||
+                !info.getProperty('JAVA_VERSION','').replace('"','').startsWith('21.') ||
+                info.getProperty('OS_NAME','').replace('"','') != 'Windows' ||
+                !(info.getProperty('OS_ARCH','').replace('"','') in ['x86_64','amd64'])) {
+            throw new GradleException('Use a verified Temurin21 Windows x64 JDK via -PpackagingJdk; system Oracle JDK is not redistributed')
+        }
+        if (!sourceBundle.isPresent()) { throw new GradleException('Supply matching source archives via -PruntimeSourceBundle') }
+        def bundle = new File(sourceBundle.get())
+        def metadata = new groovy.json.JsonSlurper().parse(new File(bundle, 'runtime-source.json'), 'UTF-8')
+        if (metadata.archives.size() != 2 || metadata.archives.collect { it.role }.toSet() != ['runtime','build'].toSet()) {
+            throw new GradleException('Matching runtime and build source archives are required')
+        }
+        metadata.archives.each { entry ->
+            if (!(entry.file ==~ /[A-Za-z0-9._-]+\.tar\.gz/) || entry.file.contains('..')) { throw new GradleException('Unsafe source archive name') }
+            def archive = new File(bundle, entry.file)
+            def actual = java.security.MessageDigest.getInstance('SHA-256').digest(archive.bytes).encodeHex().toString()
+            if (actual != entry.sha256) { throw new GradleException('Source archive checksum mismatch') }
+            def field = entry.role == 'runtime' ? info.getProperty('SOURCE') : info.getProperty('BUILD_SOURCE')
+            if (!field.contains('git:' + entry.ref)) { throw new GradleException('Sources do not match bundled JDK release') }
+        }
+        def imagePath = imageDirectory.get().asFile.toPath().toAbsolutePath().normalize()
+        def buildPath = layout.buildDirectory.get().asFile.toPath().toAbsolutePath().normalize()
+        if (!imagePath.startsWith(buildPath) || imagePath == buildPath || java.nio.file.Files.isSymbolicLink(imagePath)) {
+            throw new GradleException('Unsafe app image target')
+        }
+        if (java.nio.file.Files.exists(imagePath)) {
+            if (imagePath.toFile().list().length != 0) {
+                throw new GradleException('App image already exists; use a fresh verificationStage/output rather than overwriting a potentially running application')
+            }
+            // Gradle会预建声明的输出目录；只删除空目录，不递归删除或覆盖任何已生成应用。
+            java.nio.file.Files.delete(imagePath)
+        }
+        imageParent.get().asFile.mkdirs()
+        commandLine new File(jdk, 'bin/jpackage.exe').absolutePath,
+                '--type','app-image','--name','GameCore','--app-version',project.version.toString().split('-')[0],
+                '--vendor','GameCore','--description','GameCore desktop games and online lobby',
+                '--input',layout.buildDirectory.dir('install/GameCore/lib').get().asFile.absolutePath,
+                '--main-jar',tasks.named('jar').get().archiveFileName.get(),
+                '--main-class','dev.gamecore.lwjgl3.Lwjgl3Launcher',
+                '--dest',imageParent.get().asFile.absolutePath,
+                '--add-modules',runtimeModules,
+                '--jlink-options','--strip-debug --no-header-files --no-man-pages --compress=2',
+                '--java-options','-Xms64m','--java-options','-Xmx512m','--java-options','-Dfile.encoding=UTF-8'
+    }
+    doLast {
+        def image = imageDirectory.get().asFile
+        noticeProjects.each { name ->
+            copy {
+                from(rootProject.file('opensource_application/' + name)) { include 'LICENSE*','NOTICE*','COPYING*','OFL*','license/**','许可证*' }
+                into new File(image, 'third-party/' + name)
+            }
+        }
+        def jdk = new File(packagingJdk.get())
+        copy { from new File(jdk, 'NOTICE'); into new File(image, 'third-party/OpenJDK') }
+        copy { from new File(jdk, 'legal/jdk.jpackage'); into new File(image, 'third-party/OpenJDK/launcher-legal') }
+        copy { from sourceBundle.get(); into new File(image, 'third-party/OpenJDK/corresponding-source') }
+        copy { from rootProject.file('THIRD_PARTY_NOTICES.md'); into image }
+        new File(image, 'README-使用说明.txt').setText('''GameCore Windows 64位便携版
+
+1. 完整解压ZIP，然后双击GameCore.exe；不要只拷贝exe文件。
+2. Java运行环境随包提供，无需安装JDK、Gradle或配置JAVA_HOME。
+3. 在线平台地址随发布包提供，正常启动自动查询房间；注册/登录后创建或加入。
+4. 平台不可用时仍可点击“返回本地游戏”。
+5. 原本地设置/记录保存在当前Windows用户目录下的.gamecore；密码不保存到本机。
+6. 如无法启动，用“启动诊断.bat”显示错误信息；需要可用的显卡/OpenGL驱动。
+7. third-party和runtime/legal保留第三方许可与对应OpenJDK源码，不要删除。
+
+本包面向Windows x64，尚需在其他实际电脑/显卡上验收；不适用于macOS、Linux或Windows ARM原生环境。
+本包为未代码签名的开发测试构建。现有格斗角色素材授权记录仍待核实，正式公开发布前请确认；项目整体许可由所有者决定。
+''','UTF-8')
+        // 诊断入口同样只用包内Java；短classpath避免重新引入cmd长度问题。
+        new File(image, '启动诊断.bat').setText('''@echo off
+setlocal
+"%~dp0runtime\\bin\\java.exe" -Xms64m -Xmx512m -Dfile.encoding=UTF-8 -cp "%~dp0app\\*" dev.gamecore.lwjgl3.Lwjgl3Launcher %*
+set "GAMECORE_EXIT=%ERRORLEVEL%"
+echo GameCore exit code: %GAMECORE_EXIT%
+pause
+exit /b %GAMECORE_EXIT%
+''','UTF-8')
+        def runtimeInfo = new Properties()
+        new File(jdk,'release').withInputStream { runtimeInfo.load(it) }
+        def manifest = [desktopRelease:desktopRelease.get(),runtime:runtimeInfo.getProperty('JAVA_RUNTIME_VERSION').replace('"',''),
+                        vendor:'Eclipse Adoptium',platform:'windows-x64',entry:'GameCore.exe',modules:runtimeModules.split(',').toList()]
+        new File(image,'BUILD.json').setText(groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(manifest))+'\n','UTF-8')
+    }
+}
+
+tasks.register('windowsPortableZip', Zip) {
+    group = 'distribution'
+    description = '生成可复制到其他Windows x64电脑的完整便携ZIP和SHA256。'
+    dependsOn tasks.named('windowsAppImage')
+    archiveBaseName = 'GameCore-Windows-x64'
+    archiveVersion = desktopRelease
+    destinationDirectory = layout.buildDirectory.dir('distributions')
+    into('GameCore') { from imageDirectory }
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+    doLast {
+        def file = archiveFile.get().asFile
+        new File(file.parentFile,file.name+'.sha256').setText(java.security.MessageDigest.getInstance('SHA-256').digest(file.bytes).encodeHex().toString()+'  '+file.name+'\n','UTF-8')
+    }
+}
+
+// 应用映像不包含这些测试类；仅验收时从外部加载Agent和已有图形场景。
+tasks.register('portableTestAgent', Jar) {
+    dependsOn tasks.named('smokeTestClasses')
+    from(sourceSets.smokeTest.output) { include 'dev/gamecore/lwjgl3/PortableLauncherAgent*.class' }
+    archiveFileName = 'portable-test-agent.jar'
+    destinationDirectory = layout.buildDirectory.dir('reports/portable-test-tools')
+    manifest { attributes 'Premain-Class':'dev.gamecore.lwjgl3.PortableLauncherAgent' }
+}
+
+tasks.register('windowsPortableSmokeTest', JavaExec) {
+    group = 'verification'
+    description = '解压正式ZIP到中文/空格新目录，清空系统Java环境，验证exe/内置TLS与六个本地图形场景。'
+    dependsOn tasks.named('windowsPortableZip'), tasks.named('portableTestAgent')
+    classpath = sourceSets.smokeTest.runtimeClasspath
+    mainClass = 'dev.gamecore.lwjgl3.WindowsPortableSmokeTest'
+    args tasks.named('windowsPortableZip').flatMap { it.archiveFile }.get().asFile.absolutePath,
+            layout.buildDirectory.dir('reports/windows-portable-test').get().asFile.absolutePath,
+            sourceSets.smokeTest.output.classesDirs.asPath,
+            tasks.named('portableTestAgent').flatMap { it.archiveFile }.get().asFile.absolutePath
+    timeout = java.time.Duration.ofSeconds(650)
+    javaLauncher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(21) }
+}

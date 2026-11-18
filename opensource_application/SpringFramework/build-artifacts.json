@@ -1,0 +1,15 @@
+[
+  {
+    "group": "org.springframework",
+    "name": "spring-core",
+    "version": "7.0.10",
+    "bytes": 2037889,
+    "sha256": "a236f31a7c07e3a1a8e7839ec5c0d47b5cc75709132db50416d5dad320341f12",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ]
+  }
+]

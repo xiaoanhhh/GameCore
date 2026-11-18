@@ -1,0 +1,15 @@
+[
+  {
+    "group": "org.checkerframework",
+    "name": "checker-qual",
+    "version": "3.55.1",
+    "bytes": 241885,
+    "sha256": "857658c8bdcbff794949a8d9922f88d63ee3751c203c7cd7d21ea97f9e745288",
+    "licenses": [
+      {
+        "name": "The MIT License",
+        "url": "https://opensource.org/licenses/MIT"
+      }
+    ]
+  }
+]

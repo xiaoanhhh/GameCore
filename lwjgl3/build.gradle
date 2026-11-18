@@ -1,0 +1,261 @@
+plugins {
+    id 'application'
+}
+
+dependencies {
+    implementation project(':client')
+    implementation libs.gdx.backend.lwjgl3
+    runtimeOnly "com.badlogicgames.gdx:gdx-platform:${libs.versions.gdx.get()}:natives-desktop"
+    runtimeOnly "com.badlogicgames.gdx:gdx-freetype-platform:${libs.versions.gdx.get()}:natives-desktop"
+
+    testImplementation platform(libs.junit.bom)
+    testImplementation libs.junit.jupiter
+    testRuntimeOnly libs.junit.launcher
+}
+
+application {
+    mainClass = 'dev.gamecore.lwjgl3.Lwjgl3Launcher'
+    applicationName = 'GameCore'
+    if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('mac')) {
+        applicationDefaultJvmArgs = ['-XstartOnFirstThread']
+    }
+}
+
+// Windows cmd 对展开后的命令行有限长；lib 内只有发行包运行依赖，交给 Java 展开通配符。
+// 保留 Gradle 的 Java 查找、JVM 参数、退出码与 Unix 脚本，不把本机路径写进制品。
+tasks.named('startScripts') {
+    doLast {
+        def lines = windowsScript.readLines('UTF-8')
+        if (lines.count { it.startsWith('set CLASSPATH=') } != 1) {
+            throw new GradleException('Unexpected Windows launcher template: expected one classpath assignment')
+        }
+        windowsScript.setText(lines.collect {
+            it.startsWith('set CLASSPATH=') ? 'set "CLASSPATH=%APP_HOME%\\lib\\*"' : it
+        }.join('\r\n') + '\r\n', 'UTF-8')
+    }
+}
+
+tasks.named('test') {
+    dependsOn tasks.named('startScripts')
+    systemProperty 'gamecore.test.windowsLauncher', tasks.named('startScripts').get().windowsScript.absolutePath
+}
+
+// 同时支持开发工作目录和资源打包；初始 assets 中没有受授权约束的图片/字体。
+sourceSets.main.resources {
+    srcDir rootProject.file('assets')
+    // native解压缓存不属于运行资源，避免后续图形验收污染分发。
+    exclude '**/.lwjgl/**'
+}
+tasks.named('run') {
+    workingDir rootProject.file('assets')
+    // 只显式传递本地调试参数；客户端还会检查回环地址，公网模式不允许注入。
+    ['gamecore.network.dev', 'gamecore.network.rttMs', 'gamecore.network.jitterMs', 'gamecore.network.dropPercent',
+     'gamecore.network.seed', 'gamecore.network.blackoutStartMs', 'gamecore.network.blackoutMs',
+     'gamecore.platform.url', 'gamecore.tls.ca', 'gamecore.offline'].each { key ->
+        if (System.getProperty(key) != null) { systemProperty key, System.getProperty(key) }
+    }
+}
+
+// 图形测试独立于单元测试，避免无显示设备的环境被误报成规则测试失败。
+sourceSets {
+    smokeTest {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+}
+configurations {
+    smokeTestImplementation.extendsFrom implementation
+    smokeTestRuntimeOnly.extendsFrom runtimeOnly
+}
+dependencies {
+    smokeTestImplementation project(':protocol')
+    smokeTestImplementation project(':platform-api')
+    smokeTestImplementation project(':game-online')
+    // 图形验收检查开发链路是否真实安装；仅测试可见，不扩大桌面生产API依赖。
+    smokeTestImplementation project(':network-transport')
+    // 交互记录验收需要进程内的真实游戏服务器；仅测试可见。
+    smokeTestImplementation project(':game-server')
+}
+tasks.register('smokeTest', JavaExec) {
+    group = 'verification'
+    description = '创建真实窗口，验证大厅页面、设置、输入、缩放和生命周期，并保存截图。'
+    dependsOn tasks.named('smokeTestClasses')
+    classpath = sourceSets.smokeTest.runtimeClasspath
+    mainClass = 'dev.gamecore.lwjgl3.DesktopSmokeTest'
+    workingDir rootProject.file('assets')
+    args layout.buildDirectory.dir('reports/smoke-test').get().asFile.absolutePath
+    timeout = java.time.Duration.ofSeconds(45)
+    javaLauncher = javaToolchains.launcherFor {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+tasks.register('platformLobbySmokeTest', JavaExec) {
+    group = 'verification'
+    description = '真实窗口验证自动游客大厅、注册入口、错误恢复和反复退出。'
+    dependsOn tasks.named('smokeTestClasses')
+    classpath = sourceSets.smokeTest.runtimeClasspath
+    mainClass = 'dev.gamecore.lwjgl3.PlatformLobbySmokeTest'
+    workingDir rootProject.file('assets')
+    args layout.buildDirectory.dir('reports/platform-lobby-smoke').get().asFile.absolutePath
+    timeout = java.time.Duration.ofSeconds(70)
+    javaLauncher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(21) }
+}
+tasks.register('platformAuthFeedbackSmokeTest', JavaExec) {
+    group = 'verification'
+    description = '真实窗口验证未配置平台注册入口、请求中防重入及表单就近错误反馈。'
+    dependsOn tasks.named('smokeTestClasses')
+    classpath = sourceSets.smokeTest.runtimeClasspath
+    mainClass = 'dev.gamecore.lwjgl3.PlatformAuthFeedbackSmokeTest'
+    workingDir rootProject.file('assets')
+    args layout.buildDirectory.dir('reports/platform-auth-feedback').get().asFile.absolutePath
+    timeout = java.time.Duration.ofSeconds(100)
+    javaLauncher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(21) }
+}
+tasks.register('platformUiSmokeTest', JavaExec) {
+    group = 'verification'
+    description = '真实窗口与回环HTTP验证平台卡片、长文案、准备/战绩、缩放和自动刷新焦点。'
+    dependsOn tasks.named('smokeTestClasses')
+    classpath = sourceSets.smokeTest.runtimeClasspath
+    mainClass = 'dev.gamecore.lwjgl3.PlatformUiSmokeTest'
+    workingDir rootProject.file('assets')
+    args layout.buildDirectory.dir('reports/platform-ui-smoke').get().asFile.absolutePath
+    timeout = java.time.Duration.ofSeconds(120)
+    javaLauncher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(21) }
+}
+
+tasks.register('trafficOverlaySmokeTest', JavaExec) {
+    group = 'verification'
+    description = '真实窗口与回环服务验证交互记录面板：账户开关、拖动、点击隔离、跨页面、真实对局、缩放和退出登录。'
+    dependsOn tasks.named('smokeTestClasses')
+    classpath = sourceSets.smokeTest.runtimeClasspath
+    mainClass = 'dev.gamecore.lwjgl3.TrafficOverlaySmokeTest'
+    workingDir rootProject.file('assets')
+    args layout.buildDirectory.dir('reports/traffic-overlay-smoke').get().asFile.absolutePath
+    timeout = java.time.Duration.ofSeconds(240)
+    javaLauncher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(21) }
+}
+
+tasks.withType(JavaExec).configureEach {
+    if (!(name in ['run','platformLobbySmokeTest','platformAuthFeedbackSmokeTest','platformUiSmokeTest','trafficOverlaySmokeTest'])) { systemProperty 'gamecore.offline', 'true' }
+    def executionTemporaryDirectory = layout.buildDirectory.dir("tmp/${name}")
+    systemProperty 'java.io.tmpdir', executionTemporaryDirectory.get().asFile.absolutePath
+    doFirst { executionTemporaryDirectory.get().asFile.mkdirs() }
+    if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('mac')) {
+        jvmArgs '-XstartOnFirstThread'
+    }
+}
+
+tasks.register('uiScaleTest', JavaExec) {
+    group = 'verification'
+    description = '验证窗口放大后的字体像素密度，并保存原生分辨率截图。'
+    dependsOn tasks.named('smokeTestClasses')
+    classpath = sourceSets.smokeTest.runtimeClasspath
+    mainClass = 'dev.gamecore.lwjgl3.UiScaleSmokeTest'
+    workingDir rootProject.file('assets')
+    args layout.buildDirectory.dir('reports/ui-scale-test').get().asFile.absolutePath
+    systemProperty 'gamecore.scale.captureOnly', providers.gradleProperty('captureOnly').orElse('false').get()
+    timeout = java.time.Duration.ofSeconds(90)
+    javaLauncher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(21) }
+}
+
+tasks.register('snakeSmokeTest', JavaExec) {
+    group = 'verification'
+    description = '真实窗口验收 Snake 三模式、输入、成长、结算、存档和资源释放。'
+    dependsOn tasks.named('smokeTestClasses')
+    classpath = sourceSets.smokeTest.runtimeClasspath
+    mainClass = 'dev.gamecore.lwjgl3.SnakeSmokeTest'
+    workingDir rootProject.file('assets')
+    args layout.buildDirectory.dir('reports/snake-smoke-test').get().asFile.absolutePath
+    timeout = java.time.Duration.ofSeconds(90)
+    javaLauncher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(21) }
+}
+
+tasks.register('gameWindowTest', JavaExec) {
+    group = 'verification'
+    description = '验证真实多窗口、大棋盘、模式、关闭/返回大厅和独立资源生命周期。'
+    dependsOn tasks.named('smokeTestClasses')
+    classpath = sourceSets.smokeTest.runtimeClasspath
+    mainClass = 'dev.gamecore.lwjgl3.GameWindowSmokeTest'
+    workingDir rootProject.file('assets')
+    args layout.buildDirectory.dir('reports/game-window-test').get().asFile.absolutePath
+    timeout = java.time.Duration.ofSeconds(120)
+    javaLauncher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(21) }
+}
+
+tasks.register('tankSmokeTest', JavaExec) {
+    group = 'verification'
+    description = '真实窗口验收 Tank 双人输入、三级 Bot、切图、结算、暂停、缩放和资源释放。'
+    dependsOn tasks.named('smokeTestClasses')
+    classpath = sourceSets.smokeTest.runtimeClasspath
+    mainClass = 'dev.gamecore.lwjgl3.TankSmokeTest'
+    workingDir rootProject.file('assets')
+    args layout.buildDirectory.dir('reports/tank-smoke-test').get().asFile.absolutePath
+    timeout = java.time.Duration.ofSeconds(120)
+    javaLauncher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(21) }
+}
+
+tasks.register('fightSmokeTest', JavaExec) {
+    group = 'verification'
+    description = '真实窗口验收终极格斗的角色、双人输入、技能、HUD、暂停、结算和资源释放。'
+    dependsOn tasks.named('smokeTestClasses')
+    classpath = sourceSets.smokeTest.runtimeClasspath
+    mainClass = 'dev.gamecore.lwjgl3.FightSmokeTest'
+    workingDir rootProject.file('assets')
+    args layout.buildDirectory.dir('reports/fight-smoke-test').get().asFile.absolutePath
+    timeout = java.time.Duration.ofSeconds(120)
+    javaLauncher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(21) }
+}
+
+// 三个独立JVM：正式服务器、两个真实libGDX大厅/游戏窗口。Python只作可选验收编排，不进入分发。
+def onlineAcceptanceDirectory = layout.buildDirectory.dir('reports/online-tank-test')
+tasks.register('prepareOnlineTankTest') {
+    dependsOn tasks.named('smokeTestClasses'), tasks.named('installDist'), project(':game-server').tasks.named('installDist')
+    dependsOn sourceSets.smokeTest.runtimeClasspath
+    doLast {
+        def directory = onlineAcceptanceDirectory.get().asFile
+        directory.mkdirs()
+        def installedLibraries = layout.buildDirectory.dir('install/GameCore/lib').get().asFile.absolutePath + File.separator + '*'
+        new File(directory, 'classpath.txt').setText(installedLibraries + File.pathSeparator + sourceSets.smokeTest.output.classesDirs.asPath, 'UTF-8')
+    }
+}
+tasks.register('onlineTankTest', Exec) {
+    environment 'GAMECORE_OFFLINE', 'true'
+    group = 'verification'
+    description = '启动独立服务器和两个真实图形客户端，从大厅进入在线Tank并验收胜负/异常/反复退出。'
+    dependsOn tasks.named('prepareOnlineTankTest')
+    workingDir rootProject.projectDir
+    commandLine 'python', rootProject.file('tools/online-tank-process-probe.py').absolutePath,
+            onlineAcceptanceDirectory.get().asFile.absolutePath,
+            project(':game-server').layout.buildDirectory.dir('install/GameCore-TankServer/lib').get().asFile.absolutePath + File.separator + '*'
+    timeout = java.time.Duration.ofSeconds(300)
+}
+
+// 多游戏共用界面：仅回环服务，两个独立真实窗口；不连接发布配置中的云节点。
+tasks.register('onlineArenaTest', Exec) {
+    group = 'verification'
+    description = '验证三款在线游戏共用本地布局/HUD、双人身份、缩放、连接覆盖层与结算释放。'
+    dependsOn tasks.named('prepareOnlineTankTest')
+    environment 'GAMECORE_OFFLINE', 'true'
+    workingDir rootProject.projectDir
+    timeout = java.time.Duration.ofSeconds(300)
+    doFirst {
+        commandLine 'python', rootProject.file('tools/run-online-multigame.py').absolutePath,
+                '--java', javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(21) }.get().executablePath.asFile.absolutePath,
+                '--client-classpath', new File(onlineAcceptanceDirectory.get().asFile,'classpath.txt').getText('UTF-8'),
+                '--server-classpath', project(':game-server').layout.buildDirectory.dir('install/GameCore-TankServer/lib').get().asFile.absolutePath + File.separator + '*',
+                '--output', layout.buildDirectory.dir('reports/online-arena-test').get().asFile.absolutePath
+    }
+}
+
+distributions {
+    main {
+        contents {
+            from(rootProject.file('opensource_application/Netty')) { into 'third-party/Netty'; include 'LICENSE.txt', 'NOTICE.txt', 'license/**' }
+            from(rootProject.file('opensource_application/JCTools')) { into 'third-party/JCTools'; include 'LICENSE' }
+            from(rootProject.file('opensource_application/Protobuf')) { into 'third-party/Protobuf'; include 'LICENSE' }
+        }
+    }
+}
+
+// 自带Temurin运行环境的Windows便携发布，保持常规run/installDist入口独立。
+apply from: 'portable.gradle'

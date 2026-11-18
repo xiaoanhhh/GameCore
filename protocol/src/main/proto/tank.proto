@@ -1,0 +1,78 @@
+syntax = "proto3";
+package gamecore.tank.v1;
+option java_package = "dev.gamecore.protocol";
+option java_outer_classname = "TankProtocol";
+
+// 输入只有意图；没有客户端playerId、位置、速度或生命字段。编号发布后不得复用。
+message Envelope {
+  uint32 protocol_version = 1;
+  uint64 request_id = 2;
+  oneof payload {
+    ClientHello client_hello = 10;
+    ServerHello server_hello = 11;
+    JoinRoomRequest join_room_request = 12;
+    JoinRoomResponse join_room_response = 13;
+    PlayerInput player_input = 14;
+    WorldSnapshot world_snapshot = 15;
+    GameEvent game_event = 16;
+    MatchResult match_result = 17;
+    ErrorMessage error = 18;
+    Heartbeat heartbeat = 19;
+  }
+}
+message ClientHello { string client_name = 1; }
+message ServerHello {
+  string connection_id = 1;
+  string join_credential = 2;
+  uint32 server_tps = 3;
+  uint32 simulation_tps = 4;
+  string rules_version = 5;
+  bool heartbeat_supported = 6;
+  bool prediction_supported = 7;
+}
+// 与游戏输入分开的连接保活；请求响应沿用Envelope.request_id，不推进房间。
+message Heartbeat { }
+message JoinRoomRequest { string room_id = 1; string credential = 2; }
+message JoinRoomResponse { string room_id = 1; uint32 player_slot = 2; string match_id = 3; }
+enum MoveDirection { MOVE_IDLE = 0; FORWARD = 1; BACKWARD = 2; }
+enum TurnDirection { TURN_IDLE = 0; LEFT = 1; RIGHT = 2; }
+message PlayerInput {
+  uint64 sequence = 1;
+  uint64 target_tick = 2;
+  MoveDirection move = 3;
+  TurnDirection turn = 4;
+  bool fire = 5;
+  string match_id = 6;
+  optional double aim_degrees = 7;
+}
+// sequence只确认实际执行；received_sequence仅表示合法接纳，不能用于删除未执行输入。
+message InputAck {
+  uint32 player_slot = 1; uint64 sequence = 2;
+  uint64 received_sequence = 3; uint64 applied_tick = 4;
+  PlayerInput active_input = 5; uint64 expires_tick = 6;
+}
+message PlayerState {
+  uint32 player_slot = 1; double x = 2; double y = 3; double heading = 4;
+  int32 health = 5; double velocity_x = 6; double velocity_y = 7;
+  uint32 cooldown = 8; bool connected = 9;
+}
+message BulletState {
+  uint64 id = 1; uint32 owner = 2; double x = 3; double y = 4;
+  double velocity_x = 5; double velocity_y = 6; uint32 remaining_ticks = 7;
+}
+enum RoomState { WAITING = 0; RUNNING = 1; FINISHED = 2; ABORTED = 3; }
+message WorldSnapshot {
+  string room_id = 1; string match_id = 2;
+  uint64 server_tick = 3; uint64 simulation_tick = 4; uint32 server_tps = 5;
+  repeated InputAck input_acks = 6; repeated PlayerState players = 7;
+  repeated BulletState bullets = 8; RoomState state = 9;
+  string map_id = 10; string map_digest = 11;
+}
+message GameEvent {
+  uint64 event_id = 1; string match_id = 2; uint64 server_tick = 3;
+  uint64 simulation_tick = 4; string kind = 5; int32 actor = 6; int32 target = 7;
+  double x = 8; double y = 9;
+}
+enum Outcome { NO_RESULT = 0; PLAYER_ONE = 1; PLAYER_TWO = 2; DRAW = 3; CANCELLED = 4; }
+message MatchResult { Outcome outcome = 1; string reason = 2; WorldSnapshot final_snapshot = 3; }
+message ErrorMessage { string code = 1; string description = 2; uint64 input_sequence = 3; uint64 target_tick = 4; }

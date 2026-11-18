@@ -1,0 +1,15 @@
+[
+  {
+    "group": "com.zaxxer",
+    "name": "HikariCP",
+    "version": "7.0.2",
+    "bytes": 172312,
+    "sha256": "f1e612fa27345be3107a85431e8a8aeb205c15364ab2f2d411e40a9d7bb08095",
+    "licenses": [
+      {
+        "name": "The Apache Software License, Version 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0.txt"
+      }
+    ]
+  }
+]

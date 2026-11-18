@@ -1,0 +1,13 @@
+// 坦克规则、地图契约与 Bot 均只使用 JDK 和纯 Java game-api；测试资源复用正式 TMX，避免两套地图漂移。
+dependencies {
+    api project(':game-api')
+    testImplementation platform(libs.junit.bom)
+    testImplementation libs.junit.jupiter
+    testRuntimeOnly libs.junit.launcher
+}
+sourceSets.test.resources.srcDir rootProject.file('assets')
+// 独立服务器从规则JAR加载同源逻辑地图；只打包TMX，不带图形/音频/字体资源。
+sourceSets.main.resources {
+    srcDir rootProject.file('assets')
+    include 'maps/tank/*.tmx'
+}

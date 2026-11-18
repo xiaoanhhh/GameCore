@@ -1,0 +1,7 @@
+dependencies {
+    api platform('tools.jackson:jackson-bom:3.1.7')
+    api 'tools.jackson.core:jackson-databind'
+    testImplementation platform(libs.junit.bom)
+    testImplementation libs.junit.jupiter
+    testRuntimeOnly libs.junit.launcher
+}

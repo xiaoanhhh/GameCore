@@ -1,0 +1,8 @@
+# 可选的全机journal预算，不由安装脚本自动覆盖其他服务策略。
+# 管理员评审后放/etc/systemd/journald.conf.d/60-retention.conf
+[Journal]
+SystemMaxUse=256M
+SystemKeepFree=2G
+MaxRetentionSec=7day
+MaxFileSec=1day
+Compress=yes

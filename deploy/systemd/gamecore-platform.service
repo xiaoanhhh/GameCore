@@ -1,0 +1,44 @@
+[Unit]
+Description=GameCore optional HTTP platform (Java 21)
+After=network-online.target postgresql.service
+StartLimitIntervalSec=120
+StartLimitBurst=3
+
+[Service]
+Type=exec
+User=gamecore-platform
+Group=gamecore-platform
+WorkingDirectory=/var/lib/gamecore-platform
+EnvironmentFile=/etc/gamecore/platform.env
+ExecStart=/opt/gamecore/current/deploy/scripts/platform-start.sh
+KillSignal=SIGTERM
+TimeoutStopSec=30
+Restart=on-failure
+RestartSec=5
+SuccessExitStatus=143
+UMask=0027
+StateDirectory=gamecore-platform
+LogsDirectory=gamecore-platform
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+CapabilityBoundingSet=
+MemoryHigh=480M
+MemoryMax=576M
+MemorySwapMax=64M
+TasksMax=96
+LimitNOFILE=1024
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=gamecore-platform
+LogRateLimitIntervalSec=30s
+LogRateLimitBurst=300
+
+[Install]
+WantedBy=multi-user.target

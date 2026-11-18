@@ -1,0 +1,32 @@
+# Tank测试服：systemd只管理进程，游戏世界仍由原Room单写入线程管理。
+[Unit]
+Description=GameCore authoritative Tank test server
+After=network.target
+StartLimitIntervalSec=60
+StartLimitBurst=5
+
+[Service]
+Type=exec
+User=gamecore
+Group=gamecore
+WorkingDirectory=/var/lib/gamecore
+EnvironmentFile=/etc/gamecore/tank.env
+ExecStart=/opt/gamecore/current/bin/GameCore-TankServer server --daemon=true --host=${GAMECORE_HOST} --port=${GAMECORE_PORT} --tps=${GAMECORE_TPS} --map=${GAMECORE_MAP} --seed=${GAMECORE_SEED}
+Restart=on-failure
+RestartSec=3
+SuccessExitStatus=143
+TimeoutStopSec=45
+StandardInput=null
+StandardOutput=journal
+StandardError=journal
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+StateDirectory=gamecore
+UMask=0027
+MemoryMax=768M
+LimitNOFILE=4096
+
+[Install]
+WantedBy=multi-user.target

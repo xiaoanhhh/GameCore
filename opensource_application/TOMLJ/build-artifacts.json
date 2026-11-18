@@ -1,0 +1,15 @@
+[
+  {
+    "group": "org.tomlj",
+    "name": "tomlj",
+    "version": "1.0.0",
+    "bytes": 157156,
+    "sha256": "32697c7567b2921c473678a820b13fc64700aa87bb14576eeb48d0ed5847cfd4",
+    "licenses": [
+      {
+        "name": "The Apache License, Version 2.0",
+        "url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+      }
+    ]
+  }
+]

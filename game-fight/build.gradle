@@ -1,0 +1,7 @@
+// 格斗规则与可重建会话只依赖纯 Java 契约；图形、输入设备和音效留在 client。
+dependencies {
+    api project(':game-api')
+    testImplementation platform(libs.junit.bom)
+    testImplementation libs.junit.jupiter
+    testRuntimeOnly libs.junit.launcher
+}

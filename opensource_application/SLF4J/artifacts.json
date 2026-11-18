@@ -1,0 +1,18 @@
+[
+  {
+    "group": "org.slf4j",
+    "name": "jul-to-slf4j",
+    "version": "2.0.20",
+    "bytes": 6345,
+    "sha256": "062249d0677a0e08039120a2292a8db064c69d04282bf562af2e54c53ff06976",
+    "licenses": []
+  },
+  {
+    "group": "org.slf4j",
+    "name": "slf4j-api",
+    "version": "2.0.20",
+    "bytes": 70255,
+    "sha256": "7e1446499b359675d8aabe6af2de86b85e72ae8a2a932c0b40d0e5ba57097439",
+    "licenses": []
+  }
+]

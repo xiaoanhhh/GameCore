@@ -1,0 +1,41 @@
+[
+  {
+    "group": "org.apache.tomcat.embed",
+    "name": "tomcat-embed-core",
+    "version": "11.0.27",
+    "bytes": 3656521,
+    "sha256": "b71785ff101c0df501064b3e3b8c4a02e4f9cc3047a7fa686c41fc4edc2f0cb4",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+      }
+    ]
+  },
+  {
+    "group": "org.apache.tomcat.embed",
+    "name": "tomcat-embed-el",
+    "version": "11.0.27",
+    "bytes": 271410,
+    "sha256": "206d6c6b1b6ce67b1c9af9ed0f6f43b4dbbc26164dd47bb49b9aad1583191f33",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+      }
+    ]
+  },
+  {
+    "group": "org.apache.tomcat.embed",
+    "name": "tomcat-embed-websocket",
+    "version": "11.0.27",
+    "bytes": 291822,
+    "sha256": "cbcd7ed6d7428fa71af6572d541a3ef74ceff42dfc523273950fe586062dc60f",
+    "licenses": [
+      {
+        "name": "Apache License, Version 2.0",
+        "url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+      }
+    ]
+  }
+]

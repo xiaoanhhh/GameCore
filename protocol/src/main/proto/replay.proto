@@ -1,0 +1,11 @@
+syntax = "proto3";
+package gamecore.online.v2;
+option java_package = "dev.gamecore.protocol";
+option java_outer_classname = "ReplayProtocol";
+import "games.proto";
+// 磁盘格式独立于网络Envelope。没有连接名、IP、凭证、令牌或密码字段。
+message ReplayHeader { uint32 format_version = 1; GameType game = 2; RuleConfig config = 3; int64 random_seed = 4; bytes initial_world_state = 5; bytes initial_hash = 6; uint32 snapshot_interval = 7; }
+message ReplayInput { uint32 player = 1; uint64 source_sequence = 2; uint64 canonical_sequence = 3; bytes command = 4; }
+message ReplayFrame { uint64 input_tick = 1; repeated ReplayInput inputs = 2; repeated GameEvent display_events = 3; optional bytes periodic_snapshot = 4; bytes state_hash = 5; }
+message ReplayEnd { uint64 final_tick = 1; bytes state_hash = 2; string reason = 3; }
+message Record { oneof payload { ReplayHeader header = 1; ReplayFrame frame = 2; ReplayEnd end = 3; } }

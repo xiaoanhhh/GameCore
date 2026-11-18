@@ -1,0 +1,25 @@
+[versions]
+gdx = "1.14.2"
+junit = "5.14.2"
+netty = "4.2.19.Final"
+protobuf-runtime = "4.34.2"
+protobuf-plugin = "0.10.0"
+
+
+[libraries]
+gdx = { module = "com.badlogicgames.gdx:gdx", version.ref = "gdx" }
+gdx-backend-lwjgl3 = { module = "com.badlogicgames.gdx:gdx-backend-lwjgl3", version.ref = "gdx" }
+gdx-freetype = { module = "com.badlogicgames.gdx:gdx-freetype", version.ref = "gdx" }
+junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter" }
+junit-launcher = { module = "org.junit.platform:junit-platform-launcher" }
+netty-bom = { module = "io.netty:netty-bom", version.ref = "netty" }
+netty-transport = { module = "io.netty:netty-transport" }
+netty-codec-base = { module = "io.netty:netty-codec-base" }
+netty-handler = { module = "io.netty:netty-handler" }
+netty-resolver-dns = { module = "io.netty:netty-resolver-dns" }
+protobuf-java = { module = "com.google.protobuf:protobuf-java", version.ref = "protobuf-runtime" }
+
+
+[plugins]
+protobuf = { id = "com.google.protobuf", version.ref = "protobuf-plugin" }

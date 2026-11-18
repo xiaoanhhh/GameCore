@@ -1,0 +1,7 @@
+// 规则模块只依赖 JDK 和纯 Java game-api；JUnit 仅用于测试，不引入图形或存储框架。
+dependencies {
+    api project(':game-api')
+    testImplementation platform(libs.junit.bom)
+    testImplementation libs.junit.jupiter
+    testRuntimeOnly libs.junit.launcher
+}

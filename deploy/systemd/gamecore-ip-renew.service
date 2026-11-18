@@ -1,0 +1,14 @@
+[Unit]
+Description=Renew GameCore trusted public IP certificate
+After=network-online.target nginx.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+# timer已承担随机错峰；关闭Certbot自己的最长数分钟等待，避免超过本unit的启动时限。
+ExecStart=/opt/gamecore-certbot/bin/certbot renew --non-interactive --no-random-sleep-on-renew --quiet --cert-name gamecore-ip --deploy-hook /usr/local/sbin/gamecore-deploy-ip-certificate
+TimeoutStartSec=300
+UMask=0077
+PrivateTmp=true
+NoNewPrivileges=true
+
